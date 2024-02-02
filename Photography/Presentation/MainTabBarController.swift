@@ -22,7 +22,14 @@ class MainTabBarController: UITabBarController {
     
     // MARK: - Private methods
     private func configureViewControllers() {
-        let homeViewController = HomeViewController()
+        let homeViewModel = HomeViewModel(
+            photoListUseCase: DefaultPhotoListUseCase(
+                photoRepository: DefaultPhotoListRepository(
+                    alamofireService: DefaultAlamofireNetworkService()
+                )
+            )
+        )
+        let homeViewController = HomeViewController(viewModel: homeViewModel)
         homeViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
         
         let favoriteViewController = BookmarkViewController()
