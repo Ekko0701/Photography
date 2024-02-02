@@ -116,8 +116,17 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 
 extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        let imageWidth: CGFloat = self.models[indexPath.row].width
+        let imageHeight: CGFloat = self.models[indexPath.row].height
+        
+        let imageViewWidth: CGFloat = view.frame.size.width / 2
+        
+        let ratio = imageWidth / imageHeight
+        let imageViewHeight: CGFloat = imageViewWidth / ratio
+        
         return CGSize(width: view.frame.size.width / 2,
-                      height: self.models[indexPath.row].height/10)
+                      height: imageViewHeight)
     }
 }
 

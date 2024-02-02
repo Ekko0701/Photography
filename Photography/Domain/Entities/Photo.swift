@@ -12,5 +12,6 @@ struct Photo {
     let imageName: String
     let description: String
     let height: CGFloat
+    let width: CGFloat
     let imageURL: String
 }

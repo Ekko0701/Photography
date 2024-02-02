@@ -79,6 +79,7 @@ extension PhotoListResponseDTO {
             imageName: self.id,
             description: self.description ?? "",
             height: CGFloat(self.height),
+            width: CGFloat(self.width),
             imageURL: self.urls.regular
         )
     }
