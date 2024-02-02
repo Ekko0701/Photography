@@ -1,6 +1,6 @@
-##Photography (24.02.02 Fri ~ )
+## Photography (24.02.02 Fri ~ )
 
-Architecture: Clean Architecture & MVVM
+Architecture: Clean Architecture & MVVM  
 Dependency Management: Swift Package Manager
 
 ## GIT COMMIT MESSAGE CONVENTION
