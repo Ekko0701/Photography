@@ -19,25 +19,19 @@ class HomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var models = [Photo]()
     
+    var isLoading: Bool = false
+    
     private var fetchMorePhoto: PublishSubject<Void> = PublishSubject<Void>()
     
     // MARK: - UI elements
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
-        layout.itemRenderDirection = .leftToRight
+        layout.itemRenderDirection = .rightToLeft
         layout.columnCount = 2 // 2행 설정
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        collectionView.register(LoadingIndicatorReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: LoadingIndicatorReusableView.identifier)
         return collectionView
-    }()
-    
-    private let loadingIndicator: UIActivityIndicatorView = {
-        let indicator = UIActivityIndicatorView()
-        indicator.hidesWhenStopped = true
-        indicator.style = .large
-        indicator.color = .black
-        indicator.stopAnimating()
-        return indicator
     }()
     
     // MARK: - Initilizer
@@ -68,12 +62,10 @@ class HomeViewController: UIViewController {
     private func setUI() {
         self.view.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints { make in
-            make.edges.equalToSuperview()
-        }
-        
-        self.collectionView.addSubview(loadingIndicator)
-        loadingIndicator.snp.makeConstraints { make in
-            make.center.equalToSuperview()
+            make.top.equalTo(self.view.safeAreaLayoutGuide)
+            make.bottom.equalToSuperview()
+            make.leading.trailing.equalToSuperview()
+            
         }
     }
     
@@ -82,12 +74,10 @@ class HomeViewController: UIViewController {
         self.collectionView.dataSource = self
     }
     
-    private func showLoadingIndicator() {
-        loadingIndicator.startAnimating()
-    }
-    
-    private func hideLoadingIndicator() {
-        loadingIndicator.stopAnimating()
+    private func updateFooterVisibility() {
+        UIView.animate(withDuration: 0.3) {
+            self.collectionView.collectionViewLayout.invalidateLayout()
+        }
     }
 }
 
@@ -117,11 +107,8 @@ extension HomeViewController {
         
         output.nowFetching
             .subscribe(onNext: { [weak self] isFetching in
-                if isFetching {
-                    self?.showLoadingIndicator()
-                } else {
-                    self?.hideLoadingIndicator()
-                }
+                self?.isLoading = isFetching
+                self?.updateFooterVisibility()
             })
             .disposed(by: disposeBag)
     }
@@ -149,6 +136,14 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.configure(imageURL: models[indexPath.row].imageURL)
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
+        if kind == UICollectionView.elementKindSectionFooter {
+            let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingIndicatorReusableView.identifier, for: indexPath) as! LoadingIndicatorReusableView
+            return footer
+        }
+        return UICollectionReusableView()
+    }
 }
 
 // MARK: - CollectionView Delegate WaterfallLayout
@@ -166,6 +161,10 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
         return CGSize(width: view.frame.size.width / 2,
                       height: imageViewHeight)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForFooterIn section: Int) -> CGFloat {
+            return 150
+        }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
