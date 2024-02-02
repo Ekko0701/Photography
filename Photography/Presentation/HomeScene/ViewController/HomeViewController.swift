@@ -26,9 +26,10 @@ class HomeViewController: UIViewController {
     // MARK: - UI elements
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
-        layout.itemRenderDirection = .rightToLeft
+        layout.itemRenderDirection = .leftToRight
         layout.columnCount = 2 // 2행 설정
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        collectionView.register(BookMarkCell.self, forCellWithReuseIdentifier: BookMarkCell.identifier)
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
         collectionView.register(LoadingIndicatorReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: LoadingIndicatorReusableView.identifier)
         return collectionView
@@ -118,23 +119,36 @@ extension HomeViewController {
 // MARK: - CollectionView Delegate & DataSource
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
+        return 2
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("Models count: \(models.count)")
-        return models.count
+        if section == 0 {
+            return 1
+        } else {
+            return models.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let cell = collectionView.dequeueReusableCell(
-            withReuseIdentifier: PhotoCollectionViewCell.identifier,
-            for: indexPath
-        ) as? PhotoCollectionViewCell else {
-            return UICollectionViewCell()
+        if indexPath.section == 0 {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: BookMarkCell.identifier,
+                for: indexPath
+            ) as? BookMarkCell else {
+                return UICollectionViewCell()
+            }
+            return cell
+        } else {
+            guard let cell = collectionView.dequeueReusableCell(
+                withReuseIdentifier: PhotoCollectionViewCell.identifier,
+                for: indexPath
+            ) as? PhotoCollectionViewCell else {
+                return UICollectionViewCell()
+            }
+            
+            cell.configure(imageURL: models[indexPath.row].imageURL)
+            return cell
         }
-        
-        cell.configure(imageURL: models[indexPath.row].imageURL)
-        return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
@@ -149,22 +163,33 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 // MARK: - CollectionView Delegate WaterfallLayout
 extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        
-        let imageWidth: CGFloat = self.models[indexPath.row].width
-        let imageHeight: CGFloat = self.models[indexPath.row].height
-        
-        let imageViewWidth: CGFloat = view.frame.size.width / 2
-        
-        let ratio = imageWidth / imageHeight
-        let imageViewHeight: CGFloat = imageViewWidth / ratio
-        
-        return CGSize(width: view.frame.size.width / 2,
-                      height: imageViewHeight)
+        if indexPath.section == 0 {
+            return CGSize(width: view.frame.size.width, height: 50)
+        } else {
+            let imageWidth: CGFloat = self.models[indexPath.row].width
+            let imageHeight: CGFloat = self.models[indexPath.row].height
+            
+            let imageViewWidth: CGFloat = view.frame.size.width / 2
+            
+            let ratio = imageWidth / imageHeight
+            let imageViewHeight: CGFloat = imageViewWidth / ratio
+            
+            return CGSize(width: view.frame.size.width / 2,
+                          height: imageViewHeight)
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, columnCountFor section: Int) -> Int {
+        return section == 0 ? 1 : 2
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForFooterIn section: Int) -> CGFloat {
+        if section == 0 {
+            return 0
+        } else {
             return 150
         }
+    }
 }
 
 extension HomeViewController: UIScrollViewDelegate {
