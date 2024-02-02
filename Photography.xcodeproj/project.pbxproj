@@ -157,9 +157,9 @@
 		6AF1BA332B6CFB05009F8E44 /* HomeScene */ = {
 			isa = PBXGroup;
 			children = (
-				6AF1BA842B6D169D009F8E44 /* ViewModel */,
 				6AF1BA802B6D1644009F8E44 /* View */,
 				6AF1BA372B6CFB3C009F8E44 /* ViewController */,
+				6AF1BA842B6D169D009F8E44 /* ViewModel */,
 			);
 			path = HomeScene;
 			sourceTree = "<group>";

@@ -19,6 +19,8 @@ class HomeViewController: UIViewController {
     private let disposeBag = DisposeBag()
     private var models = [Photo]()
     
+    private var fetchMorePhoto: PublishSubject<Void> = PublishSubject<Void>()
+    
     // MARK: - UI elements
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
@@ -27,6 +29,15 @@ class HomeViewController: UIViewController {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
         return collectionView
+    }()
+    
+    private let loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView()
+        indicator.hidesWhenStopped = true
+        indicator.style = .large
+        indicator.color = .black
+        indicator.stopAnimating()
+        return indicator
     }()
     
     // MARK: - Initilizer
@@ -59,11 +70,24 @@ class HomeViewController: UIViewController {
         self.collectionView.snp.makeConstraints { make in
             make.edges.equalToSuperview()
         }
+        
+        self.collectionView.addSubview(loadingIndicator)
+        loadingIndicator.snp.makeConstraints { make in
+            make.center.equalToSuperview()
+        }
     }
     
     private func setCollectionView() {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
+    }
+    
+    private func showLoadingIndicator() {
+        loadingIndicator.startAnimating()
+    }
+    
+    private func hideLoadingIndicator() {
+        loadingIndicator.stopAnimating()
     }
 }
 
@@ -74,7 +98,8 @@ extension HomeViewController {
         
         // INPUT
         let input = HomeViewModel.Input(
-            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in }
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
+            fetchMorePhoto: self.fetchMorePhoto
         )
         
         // OUTPUT
@@ -85,13 +110,25 @@ extension HomeViewController {
         
         output.didLoadPhotoList
             .subscribe(onNext: { [weak self] photoList in
-                self?.models = photoList
+                self?.models.append(contentsOf: photoList)
                 self?.collectionView.reloadData()
+            })
+            .disposed(by: disposeBag)
+        
+        output.nowFetching
+            .subscribe(onNext: { [weak self] isFetching in
+                if isFetching {
+                    self?.showLoadingIndicator()
+                } else {
+                    self?.hideLoadingIndicator()
+                }
             })
             .disposed(by: disposeBag)
     }
 }
 
+
+// MARK: - CollectionView Delegate & DataSource
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
@@ -114,6 +151,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
 }
 
+// MARK: - CollectionView Delegate WaterfallLayout
 extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         
@@ -130,3 +168,13 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     }
 }
 
+extension HomeViewController: UIScrollViewDelegate {
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.size.height {
+            self.fetchMorePhoto.onNext(Void())
+        }
+    }
+}

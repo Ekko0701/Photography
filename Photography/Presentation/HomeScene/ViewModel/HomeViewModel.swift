@@ -12,14 +12,17 @@ import RxRelay
 
 final class HomeViewModel {
     private let photoListUseCase: PhotoListUseCase
+    private var page: Int = 1
+    private var isFetching = BehaviorRelay<Bool>(value: false)
     
     struct Input {
         let viewWillAppear: Observable<Void>
-        // let photoSelected: Observable<String>
+        let fetchMorePhoto: PublishSubject<Void>
     }
     
     struct Output {
         var didLoadPhotoList = PublishRelay<[Photo]>()
+        var nowFetching: PublishSubject<Bool> = PublishSubject()
     }
     
     init(
@@ -34,16 +37,41 @@ final class HomeViewModel {
     ) -> Output {
         let output = Output()
         
+        // View Will Appear, 처음 ViewLoad 될 때
         input.viewWillAppear
-            .flatMap { [unowned self] _ in
-                self.fetchPhotoList(
+            .flatMapLatest { [unowned self] _ in
+                self.isFetching.accept(true)
+                return self.fetchPhotoList(
                     requestValue: PhotoListUseCaseRequestValue(
-                        page: 1,
+                        page: self.page,
                         perPage: 10
                     )
                 )
+                .do(onNext: { _ in self.isFetching.accept(false)})
             }
             .bind(to: output.didLoadPhotoList)
+            .disposed(by: disposeBag)
+        
+        input.fetchMorePhoto
+            .filter { [unowned self] _ in !self.isFetching.value }
+            .flatMapLatest { [weak self] _ -> Observable<[Photo]> in
+                guard let self = self else { return Observable.empty() }
+                self.isFetching.accept(true)
+                self.page += 1
+                print("페이지: \(self.page)")
+                return self.fetchPhotoList(
+                    requestValue: PhotoListUseCaseRequestValue(
+                        page: self.page,
+                        perPage: 10
+                    )
+                )
+                .do(onNext: { _ in self.isFetching.accept(false)})
+            }
+            .bind(to: output.didLoadPhotoList)
+            .disposed(by: disposeBag)
+        
+        self.isFetching
+            .bind(to: output.nowFetching)
             .disposed(by: disposeBag)
         
         return output
