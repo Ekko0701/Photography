@@ -7,22 +7,26 @@
 
 import Foundation
 
-import Realm
-import RealmSwift
 import RxSwift
 
-//final class DefaultRealmRepository: RealmRepository {
-//    func fetchPhotos() -> RxSwift.Observable<[Photo]> {
-//        let realm
-//    }
-//    
-//    func createBookmark(photo: Photo) {
-//        <#code#>
-//    }
-//    
-//    func deleteBookmark(photo: Photo) {
-//        <#code#>
-//    }
-//    
-//    
-//}
+final class DefaultRealmRepository{
+    private let realmService: RealmService
+    
+    init(realmService: RealmService) {
+        self.realmService = realmService
+    }
+}
+
+extension DefaultRealmRepository: RealmRepository {
+    func fetchPhotos() -> Observable<[Photo]> {
+        return realmService.readAll()
+    }
+    
+    func createBookmark(photo: Photo) {
+        realmService.create(T: photo)
+    }
+    
+    func deleteBookmark(photo: Photo) {
+        realmService.delete(object: photo)
+    }
+}

@@ -9,7 +9,7 @@ import Foundation
 
 import RealmSwift
 
-class RealmRequestDTO: Object {
+class RealmPhotoDTO: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var imageURL: String
 }
