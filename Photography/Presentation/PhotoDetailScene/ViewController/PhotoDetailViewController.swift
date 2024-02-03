@@ -57,7 +57,7 @@ class PhotoDetailViewController: UIViewController {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 15
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         return imageView
     }()
     
@@ -65,6 +65,8 @@ class PhotoDetailViewController: UIViewController {
         let label = UILabel()
         label.text = "Title"
         label.font = UIFont.systemFont(ofSize: 20, weight: .bold)
+        label.numberOfLines = 2
+        label.lineBreakMode = .byWordWrapping
         label.textColor = .white
         return label
     }()
@@ -91,6 +93,7 @@ class PhotoDetailViewController: UIViewController {
     init(viewModel: PhotoDetailViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.photoDetailViewModel = viewModel
+        bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -102,21 +105,24 @@ class PhotoDetailViewController: UIViewController {
         super.viewDidLoad()
         self.view.backgroundColor = .black.withAlphaComponent(0.7)
         setUI()
-        setImage()
     }
     
     private func setUI() {
+        self.view.addSubview(photoImageView)
+        self.photoImageView.snp.makeConstraints {
+            // $0.top.equalTo(userNameLabel.snp.bottom).offset(16)
+            $0.leading.equalToSuperview().offset(10)
+            $0.trailing.equalToSuperview().offset(-10)
+            // $0.bottom.equalTo(titleLabel.snp.top).offset(16)
+            $0.centerY.equalToSuperview()
+            $0.height.equalTo(100)
+        }
+        
         self.view.addSubview(closeButton)
         self.closeButton.snp.makeConstraints {
             $0.top.equalToSuperview().offset(56)
             $0.leading.equalToSuperview().offset(16)
             $0.width.height.equalTo(36)
-        }
-        
-        self.view.addSubview(userNameLabel)
-        self.userNameLabel.snp.makeConstraints {
-            $0.centerY.equalTo(closeButton)
-            $0.leading.equalTo(closeButton.snp.trailing).offset(16)
         }
         
         self.view.addSubview(bookmarkButton)
@@ -133,9 +139,17 @@ class PhotoDetailViewController: UIViewController {
             $0.centerY.equalTo(closeButton)
         }
         
+        self.view.addSubview(userNameLabel)
+        self.userNameLabel.snp.makeConstraints {
+            $0.centerY.equalTo(closeButton)
+            $0.leading.equalTo(closeButton.snp.trailing).offset(16)
+            $0.trailing.equalTo(downloadButton.snp.leading).offset(-16)
+        }
+        
         self.view.addSubview(tagsLabel)
         self.tagsLabel.snp.makeConstraints {
             $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-56)
             $0.bottom.equalTo(self.view.safeAreaLayoutGuide).offset(-16)
         }
         
@@ -143,34 +157,58 @@ class PhotoDetailViewController: UIViewController {
         self.descriptionLabel.snp.makeConstraints {
             $0.bottom.equalTo(tagsLabel.snp.top).offset(-8)
             $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-56)
         }
         
         self.view.addSubview(titleLabel)
         self.titleLabel.snp.makeConstraints {
             $0.bottom.equalTo(descriptionLabel.snp.top).offset(-8)
             $0.leading.equalToSuperview().offset(16)
+            $0.trailing.equalToSuperview().offset(-48)
         }
         
-        self.view.addSubview(photoImageView)
-        self.photoImageView.snp.makeConstraints {
-            $0.top.equalTo(userNameLabel.snp.bottom).offset(16)
-            $0.leading.equalToSuperview().offset(16)
-            $0.trailing.equalToSuperview().offset(-16)
-            $0.bottom.equalTo(titleLabel.snp.top).offset(16)
-        }
+        
 
     
     }
     
-    func setImage() {
-        NukeExtensions.loadImage(with: URL(string: "https://images.unsplash.com/photo-1706800695853-f18ba83a6341?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NjI3NjJ8MHwxfGFsbHwzfHx8fHx8Mnx8MTcwNjk5MjI4OHw&ixlib=rb-4.0.3&q=80&w=1080")!, into: self.photoImageView)
+    private func bindViewModel() {
+        guard let viewModel = self.photoDetailViewModel else { return }
         
-        // https://images.unsplash.com/photo-1706800695853-f18ba83a6341?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w1NjI3NjJ8MHwxfGFsbHwzfHx8fHx8Mnx8MTcwNjk5MjI4OHw&ixlib=rb-4.0.3&q=80&w=1080
+        let input = PhotoDetailViewModel.Input(
+            viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in }
+        )
+        
+        let output = viewModel.transform(
+            from: input,
+            disposeBag: disposeBag
+        )
+        
+        output.didLoadPhotoDetail
+            .drive(onNext: { [weak self] photoDetail in
+                print("디테일 \(photoDetail)")
+                self?.userNameLabel.text = photoDetail.userName
+                self?.titleLabel.text = photoDetail.slug
+                self?.descriptionLabel.text = photoDetail.description
+                self?.tagsLabel.text = photoDetail.tags.map { "#\($0)" }.joined(separator: " ")
+                self?.setImage(with: photoDetail.imageURL)
+                self?.resizeImageView(
+                    width: CGFloat(photoDetail.width),
+                    height: CGFloat(photoDetail.height)
+                )
+            })
+            .disposed(by: disposeBag)
     }
-}
-
-#Preview {
-    let viewModel = PhotoDetailViewModel()
-    let viewController = PhotoDetailViewController(viewModel: viewModel)
-    return viewController
+    
+    private func setImage(with photoURL: String) {
+        NukeExtensions.loadImage(with: URL(string: photoURL), into: self.photoImageView)
+    }
+    
+    private func resizeImageView(width: CGFloat, height: CGFloat) {
+        let ratio = width / height
+        let newHeight = (self.view.frame.width - 20) / ratio
+        self.photoImageView.snp.updateConstraints {
+            $0.height.equalTo(newHeight)
+        }
+    }
 }

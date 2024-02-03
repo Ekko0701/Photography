@@ -69,6 +69,7 @@
 		6AF1BACC2B6EDFDE009F8E44 /* PhotoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BACB2B6EDFDE009F8E44 /* PhotoDetail.swift */; };
 		6AF1BAD12B6EE447009F8E44 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAD02B6EE447009F8E44 /* PhotoDetailViewController.swift */; };
 		6AF1BAD32B6EE451009F8E44 /* PhotoDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAD22B6EE451009F8E44 /* PhotoDetailViewModel.swift */; };
+		6AF1BAD52B6EF7E2009F8E44 /* PhotoDetailUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAD42B6EF7E2009F8E44 /* PhotoDetailUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -119,6 +120,7 @@
 		6AF1BACB2B6EDFDE009F8E44 /* PhotoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetail.swift; sourceTree = "<group>"; };
 		6AF1BAD02B6EE447009F8E44 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
 		6AF1BAD22B6EE451009F8E44 /* PhotoDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewModel.swift; sourceTree = "<group>"; };
+		6AF1BAD42B6EF7E2009F8E44 /* PhotoDetailUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -270,6 +272,7 @@
 			children = (
 				6AF1BA622B6CFEF5009F8E44 /* PhotoListUseCase.swift */,
 				6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */,
+				6AF1BAD42B6EF7E2009F8E44 /* PhotoDetailUseCase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -619,6 +622,7 @@
 				6AF1BAD12B6EE447009F8E44 /* PhotoDetailViewController.swift in Sources */,
 				6AF1BA692B6CFFC5009F8E44 /* PhotoListRequestDTO.swift in Sources */,
 				6AF1BA6F2B6D0018009F8E44 /* NetworkError.swift in Sources */,
+				6AF1BAD52B6EF7E2009F8E44 /* PhotoDetailUseCase.swift in Sources */,
 				6AF1BA322B6CFAD3009F8E44 /* MainTabBarController.swift in Sources */,
 				6AF1BAAE2B6E647B009F8E44 /* PhotoCardView.swift in Sources */,
 				6AF1BA972B6E18DE009F8E44 /* UIColor+Extensions.swift in Sources */,

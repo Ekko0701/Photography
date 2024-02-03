@@ -168,7 +168,7 @@ extension HomeViewController {
         
         output.presentDetailView
             .subscribe(onNext: { [weak self] photoID in
-                self?.presentDetailViewController()
+                self?.presentDetailViewController(with: photoID)
             })
             .disposed(by: disposeBag)
     }
@@ -176,8 +176,13 @@ extension HomeViewController {
 
 // MARK: - Flow methos
 extension HomeViewController {
-    private func presentDetailViewController() {
-        let detailViewController = PhotoDetailViewController(viewModel: PhotoDetailViewModel())
+    private func presentDetailViewController(with photoID: String) {
+        let photoDetailViewModel = PhotoDetailViewModel(photoID: photoID, photoDetailUseCase: DefaultPhotoDetailUseCase(
+            photoRepository: DefaultPhotoListRepository(alamofireService: DefaultAlamofireNetworkService()),
+            realmRepository: DefaultRealmRepository(realmService: DefaultRealmService()))
+        )
+        
+        let detailViewController = PhotoDetailViewController(viewModel: photoDetailViewModel)
         detailViewController.modalPresentationStyle = .overFullScreen
         self.present(detailViewController, animated: true)
     }
