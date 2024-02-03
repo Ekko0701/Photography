@@ -8,6 +8,7 @@
 import Foundation
 
 import RxSwift
+import RealmSwift
 
 final class DefaultRealmRepository{
     private let realmService: RealmService
@@ -19,14 +20,23 @@ final class DefaultRealmRepository{
 
 extension DefaultRealmRepository: RealmRepository {
     func fetchPhotos() -> Observable<[Photo]> {
-        return realmService.readAll()
+        realmService.readAll()
+            .flatMap { data in
+                if let photoObjects = data as? [PhotoObject] {
+                    return Observable.just(photoObjects.map { $0.toDomain() })
+                } else {
+                    return Observable.just([])
+                }
+            }.asObservable()
     }
     
     func createBookmark(photo: Photo) {
-        realmService.create(T: photo)
+        realmService.create(object: PhotoObject(from: photo))
     }
     
     func deleteBookmark(photo: Photo) {
-        realmService.delete(object: photo)
+        realmService.delete(object: PhotoObject(from: photo))
     }
+    
+    
 }

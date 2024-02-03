@@ -9,7 +9,13 @@ import Foundation
 
 import RealmSwift
 
-class RealmPhotoDTO: Object {
+class PhotoObject: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var imageURL: String
+    
+    init(from photo: Photo) {
+        super.init()
+        self.id = photo.imageName
+        self.imageURL = photo.imageURL
+    }
 }

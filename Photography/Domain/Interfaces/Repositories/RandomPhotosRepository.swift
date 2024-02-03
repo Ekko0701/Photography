@@ -14,6 +14,4 @@ protocol RandomPhotosRepository {
     func fetchRandomPhotos(
         count: Int
     ) -> Observable<[Photo]>
-    
-    // TODO: - 로컬 북마크 저장 필요
 }

@@ -60,7 +60,7 @@
 		6AF1BAB52B6EA7A4009F8E44 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF1BAB42B6EA7A4009F8E44 /* RealmSwift */; };
 		6AF1BAB72B6EAE23009F8E44 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAB62B6EAE23009F8E44 /* RealmRepository.swift */; };
 		6AF1BAB92B6EAE7F009F8E44 /* DefaultRealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */; };
-		6AF1BABB2B6EB20C009F8E44 /* RealmRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABA2B6EB20C009F8E44 /* RealmRequestDTO.swift */; };
+		6AF1BABB2B6EB20C009F8E44 /* PhotoObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABA2B6EB20C009F8E44 /* PhotoObject.swift */; };
 		6AF1BABE2B6EB3AE009F8E44 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */; };
 		6AF1BAC02B6EB3BC009F8E44 /* DefaultRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */; };
 		6AF1BAC22B6EB5D8009F8E44 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */; };
@@ -105,7 +105,7 @@
 		6AF1BAAF2B6E9F5C009F8E44 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 		6AF1BAB62B6EAE23009F8E44 /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 		6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealmRepository.swift; sourceTree = "<group>"; };
-		6AF1BABA2B6EB20C009F8E44 /* RealmRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRequestDTO.swift; sourceTree = "<group>"; };
+		6AF1BABA2B6EB20C009F8E44 /* PhotoObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoObject.swift; sourceTree = "<group>"; };
 		6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealmService.swift; sourceTree = "<group>"; };
 		6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
@@ -283,6 +283,7 @@
 		6AF1BA402B6CFDFE009F8E44 /* Data */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BAC32B6EB725009F8E44 /* Realm */,
 				6AF1BA412B6CFE05009F8E44 /* Network */,
 				6AF1BA432B6CFE2C009F8E44 /* Repositories */,
 			);
@@ -302,7 +303,6 @@
 		6AF1BA422B6CFE0E009F8E44 /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
-				6AF1BABC2B6EB258009F8E44 /* Realm */,
 				6AF1BAA22B6E3118009F8E44 /* RandomPhotos */,
 				6AF1BAA12B6E310E009F8E44 /* PhotoList */,
 			);
@@ -312,9 +312,9 @@
 		6AF1BA432B6CFE2C009F8E44 /* Repositories */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */,
 				6AF1BA6A2B6CFFEE009F8E44 /* DefaultPhotoListRepository.swift */,
 				6AF1BA9F2B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift */,
-				6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -419,12 +419,20 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
-		6AF1BABC2B6EB258009F8E44 /* Realm */ = {
+		6AF1BAC32B6EB725009F8E44 /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				6AF1BABA2B6EB20C009F8E44 /* RealmRequestDTO.swift */,
+				6AF1BAC52B6EB787009F8E44 /* DataMapping */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		6AF1BAC52B6EB787009F8E44 /* DataMapping */ = {
+			isa = PBXGroup;
+			children = (
+				6AF1BABA2B6EB20C009F8E44 /* PhotoObject.swift */,
+			);
+			path = DataMapping;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -554,7 +562,7 @@
 				6AF1BA672B6CFF6B009F8E44 /* PhotoListResponseDTO+Mapping.swift in Sources */,
 				6AF1BA172B6CF5A9009F8E44 /* AppDelegate.swift in Sources */,
 				6AF1BA8E2B6D804C009F8E44 /* BookmarkItemCell.swift in Sources */,
-				6AF1BABB2B6EB20C009F8E44 /* RealmRequestDTO.swift in Sources */,
+				6AF1BABB2B6EB20C009F8E44 /* PhotoObject.swift in Sources */,
 				6AF1BA8C2B6D774E009F8E44 /* BookmarkCell.swift in Sources */,
 				6AF1BAB02B6E9F5C009F8E44 /* UIImage+Extensions.swift in Sources */,
 				6AF1BA692B6CFFC5009F8E44 /* PhotoListRequestDTO.swift in Sources */,

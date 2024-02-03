@@ -12,10 +12,10 @@ import RealmSwift
 import RxSwift
 
 final class DefaultRealmService: RealmService {
-    func create(T: Object) {
+    func create<T: Object>(object: T) {
         let realm = try! Realm()
         try! realm.write {
-            realm.add(T)
+            realm.add(object)
         }
     }
     

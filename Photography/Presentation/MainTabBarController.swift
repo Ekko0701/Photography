@@ -20,10 +20,6 @@ class MainTabBarController: UITabBarController {
         self.configureViewControllers()
     }
     
-    private func setUI() {
-        // self.view.backgroundColor = .black
-    }
-    
     // MARK: - Private methods
     private func configureViewControllers() {
         // ViewModel 생성
@@ -39,6 +35,8 @@ class MainTabBarController: UITabBarController {
             randomPhotosUseCase: DefaultRandomPhotosUseCase(
                 randomPhotosRepository: DefaultRandomPhotosRepository(
                     alamofireService: DefaultAlamofireNetworkService()
+                ), realmRepository: DefaultRealmRepository(
+                    realmService: DefaultRealmService()
                 )
             )
         )

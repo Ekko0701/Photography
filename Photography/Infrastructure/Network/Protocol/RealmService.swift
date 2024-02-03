@@ -12,7 +12,7 @@ import RealmSwift
 import RxSwift
 
 protocol RealmService {
-    func create(T: Object)
+    func create<T: Object>(object: T)
     func read<T: Object>(id: String) -> Observable<T>
     func readAll<T: Object>() -> Observable<[T]>
     func delete<T: Object>(object: T)
