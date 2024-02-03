@@ -17,11 +17,13 @@ protocol RandomPhotosUseCase {
 
 final class DefaultRandomPhotosUseCase: RandomPhotosUseCase {
     private let randomPhotosRepository: RandomPhotosRepository
-    
+    private let realmRepository: RealmRepository
     init(
-        randomPhotosRepository: RandomPhotosRepository
+        randomPhotosRepository: RandomPhotosRepository,
+        realmRepository: RealmRepository
     ) {
         self.randomPhotosRepository = randomPhotosRepository
+        self.realmRepository = realmRepository
     }
     
     func fetchRandomPhotos(

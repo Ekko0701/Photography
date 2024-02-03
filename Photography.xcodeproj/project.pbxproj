@@ -56,6 +56,14 @@
 		6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */; };
 		6AF1BAAE2B6E647B009F8E44 /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */; };
 		6AF1BAB02B6E9F5C009F8E44 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAF2B6E9F5C009F8E44 /* UIImage+Extensions.swift */; };
+		6AF1BAB32B6EA7A4009F8E44 /* Realm in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF1BAB22B6EA7A4009F8E44 /* Realm */; };
+		6AF1BAB52B6EA7A4009F8E44 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF1BAB42B6EA7A4009F8E44 /* RealmSwift */; };
+		6AF1BAB72B6EAE23009F8E44 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAB62B6EAE23009F8E44 /* RealmRepository.swift */; };
+		6AF1BAB92B6EAE7F009F8E44 /* DefaultRealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */; };
+		6AF1BABB2B6EB20C009F8E44 /* RealmRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABA2B6EB20C009F8E44 /* RealmRequestDTO.swift */; };
+		6AF1BABE2B6EB3AE009F8E44 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */; };
+		6AF1BAC02B6EB3BC009F8E44 /* DefaultRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */; };
+		6AF1BAC22B6EB5D8009F8E44 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -95,6 +103,12 @@
 		6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoViewModel.swift; sourceTree = "<group>"; };
 		6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
 		6AF1BAAF2B6E9F5C009F8E44 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
+		6AF1BAB62B6EAE23009F8E44 /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealmRepository.swift; sourceTree = "<group>"; };
+		6AF1BABA2B6EB20C009F8E44 /* RealmRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRequestDTO.swift; sourceTree = "<group>"; };
+		6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
+		6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealmService.swift; sourceTree = "<group>"; };
+		6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -108,8 +122,10 @@
 				6AF1BA5D2B6CFED3009F8E44 /* RxCocoa in Frameworks */,
 				6AF1BA512B6CFEBB009F8E44 /* NukeVideo in Frameworks */,
 				6AF1BA542B6CFEC5009F8E44 /* SnapKit in Frameworks */,
+				6AF1BAB32B6EA7A4009F8E44 /* Realm in Frameworks */,
 				6AF1BA4D2B6CFEBB009F8E44 /* NukeExtensions in Frameworks */,
 				6AF1BA612B6CFED3009F8E44 /* RxRelay in Frameworks */,
+				6AF1BAB52B6EA7A4009F8E44 /* RealmSwift in Frameworks */,
 				6AF1BA592B6CFED3009F8E44 /* RxBlocking in Frameworks */,
 				6AF1BA5B2B6CFED3009F8E44 /* RxBlocking-Dynamic in Frameworks */,
 				6AF1BA562B6CFEC5009F8E44 /* SnapKit-Dynamic in Frameworks */,
@@ -259,6 +275,7 @@
 			children = (
 				6AF1BA642B6CFF0E009F8E44 /* PhotoListRepository.swift */,
 				6AF1BA9D2B6E3075009F8E44 /* RandomPhotosRepository.swift */,
+				6AF1BAB62B6EAE23009F8E44 /* RealmRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -285,6 +302,7 @@
 		6AF1BA422B6CFE0E009F8E44 /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BABC2B6EB258009F8E44 /* Realm */,
 				6AF1BAA22B6E3118009F8E44 /* RandomPhotos */,
 				6AF1BAA12B6E310E009F8E44 /* PhotoList */,
 			);
@@ -296,6 +314,7 @@
 			children = (
 				6AF1BA6A2B6CFFEE009F8E44 /* DefaultPhotoListRepository.swift */,
 				6AF1BA9F2B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift */,
+				6AF1BAB82B6EAE7F009F8E44 /* DefaultRealmRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -304,7 +323,6 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA6D2B6D000A009F8E44 /* Network */,
-				6AF1BA712B6D003E009F8E44 /* DefaultAlamofireNetworkService.swift */,
 			);
 			path = Infrastructure;
 			sourceTree = "<group>";
@@ -313,7 +331,10 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA6E2B6D0018009F8E44 /* NetworkError.swift */,
+				6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */,
 				6AF1BA702B6D0026009F8E44 /* Protocol */,
+				6AF1BA712B6D003E009F8E44 /* DefaultAlamofireNetworkService.swift */,
+				6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */,
 			);
 			path = Network;
 			sourceTree = "<group>";
@@ -322,6 +343,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA732B6D0054009F8E44 /* AlamofireNetworkServices.swift */,
+				6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */,
 			);
 			path = Protocol;
 			sourceTree = "<group>";
@@ -397,6 +419,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		6AF1BABC2B6EB258009F8E44 /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				6AF1BABA2B6EB20C009F8E44 /* RealmRequestDTO.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -429,6 +459,8 @@
 				6AF1BA7C2B6D1638009F8E44 /* CHTCollectionViewWaterfallLayout */,
 				6AF1BA7E2B6D1638009F8E44 /* CHTCollectionViewWaterfallLayoutObjC */,
 				6AF1BA9B2B6E2EB9009F8E44 /* Shuffle */,
+				6AF1BAB22B6EA7A4009F8E44 /* Realm */,
+				6AF1BAB42B6EA7A4009F8E44 /* RealmSwift */,
 			);
 			productName = Photography;
 			productReference = 6AF1BA132B6CF5A9009F8E44 /* Photography.app */;
@@ -465,6 +497,7 @@
 				6AF1BA572B6CFED3009F8E44 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				6AF1BA7B2B6D1638009F8E44 /* XCRemoteSwiftPackageReference "CHTCollectionViewWaterfallLayout" */,
 				6AF1BA9A2B6E2EB9009F8E44 /* XCRemoteSwiftPackageReference "Shuffle" */,
+				6AF1BAB12B6EA7A4009F8E44 /* XCRemoteSwiftPackageReference "realm-swift" */,
 			);
 			productRefGroup = 6AF1BA142B6CF5A9009F8E44 /* Products */;
 			projectDirPath = "";
@@ -494,6 +527,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AF1BA762B6D00F4009F8E44 /* UnsplashAPIKey.swift in Sources */,
+				6AF1BAB72B6EAE23009F8E44 /* RealmRepository.swift in Sources */,
 				6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */,
 				6AF1BA862B6D16A6009F8E44 /* HomeViewModel.swift in Sources */,
 				6AF1BA742B6D0054009F8E44 /* AlamofireNetworkServices.swift in Sources */,
@@ -501,13 +535,17 @@
 				6AF1BA632B6CFEF5009F8E44 /* PhotoListUseCase.swift in Sources */,
 				6AF1BA722B6D003E009F8E44 /* DefaultAlamofireNetworkService.swift in Sources */,
 				6AF1BAA42B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift in Sources */,
+				6AF1BABE2B6EB3AE009F8E44 /* RealmService.swift in Sources */,
 				6AF1BAA02B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift in Sources */,
 				6AF1BA832B6D165D009F8E44 /* PhotoCollectionViewCell.swift in Sources */,
 				6AF1BA3B2B6CFD4B009F8E44 /* Photo.swift in Sources */,
 				6AF1BA882B6D5D36009F8E44 /* LoadingIndicatorReusableView.swift in Sources */,
 				6AF1BAA82B6E35C1009F8E44 /* RandomPhotosUseCase.swift in Sources */,
+				6AF1BAC02B6EB3BC009F8E44 /* DefaultRealmService.swift in Sources */,
 				6AF1BA362B6CFB25009F8E44 /* HomeViewController.swift in Sources */,
+				6AF1BAB92B6EAE7F009F8E44 /* DefaultRealmRepository.swift in Sources */,
 				6AF1BA452B6CFE4D009F8E44 /* BaseURLs.swift in Sources */,
+				6AF1BAC22B6EB5D8009F8E44 /* RealmError.swift in Sources */,
 				6AF1BA6B2B6CFFEE009F8E44 /* DefaultPhotoListRepository.swift in Sources */,
 				6AF1BA1B2B6CF5A9009F8E44 /* RandomPhotoViewController.swift in Sources */,
 				6AF1BA992B6E1E88009F8E44 /* PhotoCollectionViewHeader.swift in Sources */,
@@ -516,6 +554,7 @@
 				6AF1BA672B6CFF6B009F8E44 /* PhotoListResponseDTO+Mapping.swift in Sources */,
 				6AF1BA172B6CF5A9009F8E44 /* AppDelegate.swift in Sources */,
 				6AF1BA8E2B6D804C009F8E44 /* BookmarkItemCell.swift in Sources */,
+				6AF1BABB2B6EB20C009F8E44 /* RealmRequestDTO.swift in Sources */,
 				6AF1BA8C2B6D774E009F8E44 /* BookmarkCell.swift in Sources */,
 				6AF1BAB02B6E9F5C009F8E44 /* UIImage+Extensions.swift in Sources */,
 				6AF1BA692B6CFFC5009F8E44 /* PhotoListRequestDTO.swift in Sources */,
@@ -786,6 +825,14 @@
 				kind = branch;
 			};
 		};
+		6AF1BAB12B6EA7A4009F8E44 /* XCRemoteSwiftPackageReference "realm-swift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/realm/realm-swift.git";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -863,6 +910,16 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AF1BA9A2B6E2EB9009F8E44 /* XCRemoteSwiftPackageReference "Shuffle" */;
 			productName = Shuffle;
+		};
+		6AF1BAB22B6EA7A4009F8E44 /* Realm */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AF1BAB12B6EA7A4009F8E44 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = Realm;
+		};
+		6AF1BAB42B6EA7A4009F8E44 /* RealmSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AF1BAB12B6EA7A4009F8E44 /* XCRemoteSwiftPackageReference "realm-swift" */;
+			productName = RealmSwift;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
