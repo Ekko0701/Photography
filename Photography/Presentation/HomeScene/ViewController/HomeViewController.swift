@@ -18,6 +18,7 @@ class HomeViewController: UIViewController {
     var homeViewModel: HomeViewModel?
     private let disposeBag = DisposeBag()
     private var models = [Photo]()
+    private var bookmarkDummyData: [Photo] = [Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "d")]
     
     var isLoading: Bool = false
     
@@ -65,7 +66,9 @@ class HomeViewController: UIViewController {
     private func setNavigation() {
         guard let navigationController = self.navigationController else { return }
         
+        navigationController.navigationBar.backgroundColor = .white
         navigationController.navigationBar.barTintColor = .white
+        navigationController.navigationBar.isTranslucent = false
         
         let titleImageView = UIImageView(image: UIImage(named: "logo"))
         titleImageView.contentMode = .scaleAspectFit
@@ -147,7 +150,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return 1
+            return bookmarkDummyData.isEmpty ? 0 : 1
         } else {
             return models.count
         }
