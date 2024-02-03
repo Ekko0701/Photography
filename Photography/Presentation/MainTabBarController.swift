@@ -20,8 +20,13 @@ class MainTabBarController: UITabBarController {
         self.configureViewControllers()
     }
     
+    private func setUI() {
+        self.view.backgroundColor = .black
+    }
+    
     // MARK: - Private methods
     private func configureViewControllers() {
+        // ViewModel 생성
         let homeViewModel = HomeViewModel(
             photoListUseCase: DefaultPhotoListUseCase(
                 photoRepository: DefaultPhotoListRepository(
@@ -29,12 +34,24 @@ class MainTabBarController: UITabBarController {
                 )
             )
         )
+        
+        // Tab Bar 디자인 커스텀
+        self.tabBar.barTintColor = .black
+        self.tabBar.isTranslucent = false
+        
+        self.tabBar.tintColor = .white
+        self.tabBar.unselectedItemTintColor = .white.withAlphaComponent(0.4)
+        
+        // ViewController 생성 및 설정
         let homeViewController = HomeViewController(viewModel: homeViewModel)
-        homeViewController.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), tag: 0)
+        homeViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "house"), tag: 0)
+        homeViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+
         
         let favoriteViewController = BookmarkViewController()
-        favoriteViewController.tabBarItem = UITabBarItem(title: "Favorite", image: UIImage(systemName: "heart"), tag: 1)
-        
+        favoriteViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "cards"), tag: 1)
+        favoriteViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+
         self.setViewControllers([homeViewController, favoriteViewController], animated: true)
     }
 }
