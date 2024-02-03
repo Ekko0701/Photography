@@ -7,12 +7,14 @@
 
 import Foundation
 import UIKit
+
 import SwiftUI
+import NukeExtensions
 
 final class PhotoCardView: UIView {
     
     // MARK: - Properties
-    private let viewModel: RandomPhotoViewModel
+    private let photo: Photo
     
     // MARK: - UI components
     private lazy var backgroundView: UIView = {
@@ -65,10 +67,11 @@ final class PhotoCardView: UIView {
         return button
     }()
     
-    init(with viewModel: RandomPhotoViewModel) {
-        self.viewModel = viewModel
+    init(with photo: Photo) {
+        self.photo = photo
         super.init(frame: .zero)
         setUI()
+        setImage()
     }
     
     required init?(coder: NSCoder) {
@@ -122,6 +125,10 @@ final class PhotoCardView: UIView {
             $0.trailing.equalToSuperview()
             $0.centerY.equalToSuperview()
         }
+    }
+    
+    private func setImage() {
+        NukeExtensions.loadImage(with: URL(string: photo.imageURL), options: ImageLoadingOptions(placeholder: UIImage(systemName: "photo"), transition: .fadeIn(duration: 0.33)), into: imageView)
     }
 }
 

@@ -18,10 +18,7 @@ class RandomPhotoViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
     
     private lazy var cardStack = SwipeCardStack()
-    private let cardModels: [Photo] = [
-        Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"),
-        Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"),
-        Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"),
+    private var cardModels: [Photo] = [
     ]
     
     // MARK: - UI Components
@@ -106,6 +103,8 @@ extension RandomPhotoViewController {
             .drive(onNext: { [weak self] photos in
                 guard let self = self else { return }
                 print("결과는 \(photos)")
+                cardModels.append(contentsOf: photos)
+                cardStack.reloadData()
             })
             .disposed(by: disposeBag)
     }
@@ -116,8 +115,7 @@ extension RandomPhotoViewController: SwipeCardStackDelegate, SwipeCardStackDataS
         let card = SwipeCard()
         card.swipeDirections = [.left, .right]
         guard let viewModel = self.randomPhotoViewModel else { return SwipeCard() }
-        card.content = PhotoCardView(with: viewModel)
-        card.sizeToFit()
+        card.content = PhotoCardView(with: cardModels[index])
         return card
     }
     
