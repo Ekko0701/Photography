@@ -54,6 +54,7 @@
 		6AF1BAA62B6E3138009F8E44 /* RandomPhotosRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */; };
 		6AF1BAA82B6E35C1009F8E44 /* RandomPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */; };
 		6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */; };
+		6AF1BAAE2B6E647B009F8E44 /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -91,6 +92,7 @@
 		6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosRequestDTO.swift; sourceTree = "<group>"; };
 		6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosUseCase.swift; sourceTree = "<group>"; };
 		6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoViewModel.swift; sourceTree = "<group>"; };
+		6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -379,6 +381,7 @@
 		6AF1BAA92B6E37EB009F8E44 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				6AF1BA692B6CFFC5009F8E44 /* PhotoListRequestDTO.swift in Sources */,
 				6AF1BA6F2B6D0018009F8E44 /* NetworkError.swift in Sources */,
 				6AF1BA322B6CFAD3009F8E44 /* MainTabBarController.swift in Sources */,
+				6AF1BAAE2B6E647B009F8E44 /* PhotoCardView.swift in Sources */,
 				6AF1BA972B6E18DE009F8E44 /* UIColor+Extensions.swift in Sources */,
 				6AF1BA192B6CF5A9009F8E44 /* SceneDelegate.swift in Sources */,
 			);

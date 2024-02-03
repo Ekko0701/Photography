@@ -10,11 +10,20 @@ import UIKit
 import SnapKit
 import RxSwift
 import RxCocoa
+import Shuffle
 
 class RandomPhotoViewController: UIViewController {
     // MARK: - Properties
     private var randomPhotoViewModel: RandomPhotoViewModel?
     private let disposeBag: DisposeBag = DisposeBag()
+    
+    private lazy var cardStack = SwipeCardStack()
+    private let cardModels: [Photo] = [
+        Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"),
+        Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"),
+        Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "https://images.unsplash.com/flagged/photo-1572392640988-ba48d1a74457?ixlib=rb-4.0.3&q=80&fm=jpg&crop=entropy&cs=tinysrgb&w=1080&fit=max"),
+    ]
+    
     // MARK: - UI Components
     
     // MARK: - Initializers
@@ -32,8 +41,8 @@ class RandomPhotoViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.backgroundColor = .systemTeal
+        self.tabBarController?.tabBar.backgroundColor = .black
+        setUI()
         self.setNavigation()
         self.bindViewModel()
     }
@@ -48,7 +57,7 @@ class RandomPhotoViewController: UIViewController {
         
         let titleImageView = UIImageView(image: UIImage(named: "logo"))
         titleImageView.contentMode = .scaleAspectFit
-        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34) // 필요에 따라 조정
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34)
         navigationItem.titleView = titleImageView
         
         // 구분선 추가
@@ -61,6 +70,19 @@ class RandomPhotoViewController: UIViewController {
             make.bottom.equalTo(navigationController.navigationBar.snp.bottom)
             make.leading.trailing.equalToSuperview()
             make.height.equalTo(1)}
+    }
+    
+    private func setUI() {
+        self.view.addSubview(self.cardStack)
+        self.cardStack.snp.makeConstraints { make in
+            make.top.equalToSuperview().offset(32)
+            make.bottom.equalToSuperview().offset(-40)
+            make.leading.equalToSuperview().offset(16)
+            make.centerX.equalToSuperview()
+        }
+        
+        self.cardStack.dataSource = self
+        self.cardStack.delegate = self
     }
 }
 
@@ -89,3 +111,29 @@ extension RandomPhotoViewController {
     }
 }
 
+extension RandomPhotoViewController: SwipeCardStackDelegate, SwipeCardStackDataSource {
+    func cardStack(_ cardStack: SwipeCardStack, cardForIndexAt index: Int) -> SwipeCard {
+        let card = SwipeCard()
+        card.swipeDirections = [.left, .right]
+        guard let viewModel = self.randomPhotoViewModel else { return SwipeCard() }
+        card.content = PhotoCardView(with: viewModel)
+        card.sizeToFit()
+        return card
+    }
+    
+    func numberOfCards(in cardStack: SwipeCardStack) -> Int {
+        return cardModels.count
+    }
+    
+    func didSwipeAllCards(_ cardStack: SwipeCardStack) {
+        print("Swiped all cards!")
+    }
+    
+    func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
+        print("Swiped \(direction) on card \(index)")
+    }
+    
+    func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int) {
+        print("Card tapped")
+    }
+}
