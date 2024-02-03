@@ -69,6 +69,7 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Private methods
+    /// Set Navigation Bar
     private func setNavigation() {
         guard let navigationController = self.navigationController else { return }
         

@@ -35,6 +35,14 @@ class MainTabBarController: UITabBarController {
             )
         )
         
+        let randomPhotoViewModel = RandomPhotoViewModel(
+            randomPhotosUseCase: DefaultRandomPhotosUseCase(
+                randomPhotosRepository: DefaultRandomPhotosRepository(
+                    alamofireService: DefaultAlamofireNetworkService()
+                )
+            )
+        )
+        
         // Tab Bar 디자인 커스텀
         self.tabBar.barTintColor = .black
         self.tabBar.isTranslucent = false
@@ -48,7 +56,7 @@ class MainTabBarController: UITabBarController {
         homeNavigationController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "house"), tag: 0)
         homeNavigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         
-        let randomPhotoViewController = RandomPhotoViewController()
+        let randomPhotoViewController = RandomPhotoViewController(viewModel: randomPhotoViewModel)
         randomPhotoViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "cards"), tag: 1)
         randomPhotoViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 

@@ -53,6 +53,7 @@
 		6AF1BAA42B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA32B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift */; };
 		6AF1BAA62B6E3138009F8E44 /* RandomPhotosRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */; };
 		6AF1BAA82B6E35C1009F8E44 /* RandomPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */; };
+		6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -89,6 +90,7 @@
 		6AF1BAA32B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RandomPhotosResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
 		6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosRequestDTO.swift; sourceTree = "<group>"; };
 		6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosUseCase.swift; sourceTree = "<group>"; };
+		6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -190,7 +192,9 @@
 		6AF1BA342B6CFB0D009F8E44 /* RandomPhotoScene */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BAA92B6E37EB009F8E44 /* View */,
 				6AF1BA382B6CFB44009F8E44 /* ViewController */,
+				6AF1BAAA2B6E37F3009F8E44 /* ViewModel */,
 			);
 			path = RandomPhotoScene;
 			sourceTree = "<group>";
@@ -372,6 +376,21 @@
 			path = RandomPhotos;
 			sourceTree = "<group>";
 		};
+		6AF1BAA92B6E37EB009F8E44 /* View */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		6AF1BAAA2B6E37F3009F8E44 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -469,6 +488,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AF1BA762B6D00F4009F8E44 /* UnsplashAPIKey.swift in Sources */,
+				6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */,
 				6AF1BA862B6D16A6009F8E44 /* HomeViewModel.swift in Sources */,
 				6AF1BA742B6D0054009F8E44 /* AlamofireNetworkServices.swift in Sources */,
 				6AF1BAA62B6E3138009F8E44 /* RandomPhotosRequestDTO.swift in Sources */,
