@@ -8,5 +8,5 @@
 import Foundation
 
 class UnSplashAPIKey {
-    static let publicKey: String = "pJBVdCjikbl8BZA-HmGFrV9fderd6CYYgRvPSDQr5vE"
+    static let publicKey: String = "uMFeycKMmYntdIlmlJy3mH3ooGkDFbX_M3ZWVpbalVQ"
 }

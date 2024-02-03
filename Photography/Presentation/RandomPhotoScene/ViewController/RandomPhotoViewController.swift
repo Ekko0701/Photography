@@ -18,8 +18,12 @@ class RandomPhotoViewController: UIViewController {
     private let disposeBag: DisposeBag = DisposeBag()
     
     private lazy var cardStack = SwipeCardStack()
-    private var cardModels: [Photo] = [
-    ]
+    
+    private let cardDidSwipeLeft: PublishRelay<Void> = PublishRelay<Void>()
+    private let cardDidSwipeRight: PublishRelay<Void> = PublishRelay<Void>()
+    private let bookmarkButtonDidTap: PublishRelay<Void> = PublishRelay<Void>()
+    private let removeButtonDidTap: PublishRelay<Void> = PublishRelay<Void>()
+    private let infoButtonDidTap: PublishRelay<Void> = PublishRelay<Void>()
     
     // MARK: - UI Components
     
@@ -89,7 +93,12 @@ extension RandomPhotoViewController {
         
         // INPUT
         let input = RandomPhotoViewModel.Input(
-            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in }
+            viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
+            cardDidSwipeLeft: cardDidSwipeLeft,
+            cardDidSwipeRight: cardDidSwipeRight,
+            bookmarkButtonTapped: bookmarkButtonDidTap,
+            removeButtonTapped: removeButtonDidTap,
+            infoButtonTapped: infoButtonDidTap
         )
         
         // OUTPUT
@@ -98,15 +107,27 @@ extension RandomPhotoViewController {
             disposeBag: disposeBag
         )
         
-        output.randomPhotos
-            .asDriver(onErrorJustReturn: [])
-            .drive(onNext: { [weak self] photos in
-                guard let self = self else { return }
-                print("결과는 \(photos)")
-                cardModels.append(contentsOf: photos)
-                cardStack.reloadData()
+        output.didLoadData
+            .asDriver(onErrorJustReturn: false)
+            .drive(onNext: { [weak self] _ in
+                self?.cardStack.reloadData()
             })
             .disposed(by: disposeBag)
+        
+        output.cardWillSwipeLeft
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] _ in
+                self?.cardStack.swipe(.left, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
+        output.cardWillSwipeRight
+            .asDriver(onErrorJustReturn: ())
+            .drive(onNext: { [weak self] _ in
+                self?.cardStack.swipe(.right, animated: true)
+            })
+            .disposed(by: disposeBag)
+        
     }
 }
 
@@ -115,20 +136,35 @@ extension RandomPhotoViewController: SwipeCardStackDelegate, SwipeCardStackDataS
         let card = SwipeCard()
         card.swipeDirections = [.left, .right]
         guard let viewModel = self.randomPhotoViewModel else { return SwipeCard() }
-        card.content = PhotoCardView(with: cardModels[index])
+        
+        let photoCardView = PhotoCardView(with: viewModel.photos[index])
+        
+        photoCardView.cardViewBinding(
+            bookmarkButtonTapped: self.bookmarkButtonDidTap,
+            removeButtonTapped: self.removeButtonDidTap,
+            infoButtonTapped: self.infoButtonDidTap,
+            disposeBag: self.disposeBag
+        )
+        
+        card.content = photoCardView
+        
         return card
     }
     
     func numberOfCards(in cardStack: SwipeCardStack) -> Int {
-        return cardModels.count
+        return randomPhotoViewModel?.photos.count ?? 0
     }
     
-    func didSwipeAllCards(_ cardStack: SwipeCardStack) {
-        print("Swiped all cards!")
-    }
+//    func didSwipeAllCards(_ cardStack: SwipeCardStack) {
+//        print("Swiped all cards!")
+//    }
     
     func cardStack(_ cardStack: SwipeCardStack, didSwipeCardAt index: Int, with direction: SwipeDirection) {
-        print("Swiped \(direction) on card \(index)")
+        if direction == .left {
+            self.cardDidSwipeLeft.accept(())
+        } else {
+            self.cardDidSwipeRight.accept(())
+        }
     }
     
     func cardStack(_ cardStack: SwipeCardStack, didSelectCardAt index: Int) {

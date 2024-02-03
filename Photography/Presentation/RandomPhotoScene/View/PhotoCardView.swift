@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 import SwiftUI
+import RxRelay
+import RxSwift
 import NukeExtensions
 
 final class PhotoCardView: UIView {
@@ -67,7 +69,9 @@ final class PhotoCardView: UIView {
         return button
     }()
     
-    init(with photo: Photo) {
+    init(
+        with photo: Photo
+    ) {
         self.photo = photo
         super.init(frame: .zero)
         setUI()
@@ -130,6 +134,22 @@ final class PhotoCardView: UIView {
     private func setImage() {
         NukeExtensions.loadImage(with: URL(string: photo.imageURL), options: ImageLoadingOptions(placeholder: UIImage(systemName: "photo"), transition: .fadeIn(duration: 0.33)), into: imageView)
     }
+    
+    func cardViewBinding(bookmarkButtonTapped: PublishRelay<Void>,
+                         removeButtonTapped: PublishRelay<Void>,
+                         infoButtonTapped: PublishRelay<Void>,
+                         disposeBag: DisposeBag) {
+        bookmarkButton.rx.tap
+            .bind(to: bookmarkButtonTapped)
+            .disposed(by: disposeBag)
+        
+        removeButton.rx.tap
+            .bind(to: removeButtonTapped)
+            .disposed(by: disposeBag)
+        
+        infoButton.rx.tap
+            .bind(to: infoButtonTapped)
+            .disposed(by: disposeBag)}
 }
 
 //#Preview {
