@@ -25,6 +25,16 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.text = "image title"
+        label.numberOfLines = 2
+        label.textColor = .white
+        label.textAlignment = .left
+        label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
+        return label
+    }()
+    
     // MARK: - Initializers
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -52,9 +62,19 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         self.imageView.snp.makeConstraints { make in
             make.top.bottom.leading.trailing.equalToSuperview()
         }
+        
+        self.contentView.addSubview(self.titleLabel)
+        self.titleLabel.snp.makeConstraints { make in
+            make.leading.equalToSuperview().offset(8)
+            make.trailing.equalToSuperview().offset(-32)
+            make.bottom.equalToSuperview().offset(-8)
+        }
     }
     
-    func configure(imageURL: String) {
-        NukeExtensions.loadImage(with: URL(string: imageURL), options: ImageLoadingOptions(placeholder: UIImage(systemName: "photo"), transition: .fadeIn(duration: 0.33)), into: imageView)
+    func configure(
+        with photo: Photo
+    ) {
+        NukeExtensions.loadImage(with: URL(string: photo.imageURL), options: ImageLoadingOptions(placeholder: UIImage(systemName: "photo"), transition: .fadeIn(duration: 0.33)), into: imageView)
+        titleLabel.text = photo.description
     }
 }

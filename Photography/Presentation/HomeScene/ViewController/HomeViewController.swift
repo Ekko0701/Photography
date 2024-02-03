@@ -179,7 +179,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return UICollectionViewCell()
             }
             
-            cell.configure(imageURL: models[indexPath.row].imageURL)
+            cell.configure(with: models[indexPath.row])
             return cell
         }
     }
