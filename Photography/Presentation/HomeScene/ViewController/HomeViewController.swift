@@ -24,6 +24,7 @@ class HomeViewController: UIViewController {
     private var fetchMorePhoto: PublishSubject<Void> = PublishSubject<Void>()
     
     // MARK: - UI elements
+    
     private let collectionView: UICollectionView = {
         let layout = CHTCollectionViewWaterfallLayout()
         layout.itemRenderDirection = .leftToRight
@@ -49,6 +50,7 @@ class HomeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setNavigation()
         self.setCollectionView()
         self.setUI()
         self.bindViewModel()
@@ -60,6 +62,28 @@ class HomeViewController: UIViewController {
     }
     
     // MARK: - Private methods
+    private func setNavigation() {
+        guard let navigationController = self.navigationController else { return }
+        
+        navigationController.navigationBar.barTintColor = .white
+        
+        let titleImageView = UIImageView(image: UIImage(named: "logo"))
+        titleImageView.contentMode = .scaleAspectFit
+        titleImageView.frame = CGRect(x: 0, y: 0, width: 34, height: 34) // 필요에 따라 조정
+        navigationItem.titleView = titleImageView
+        
+        // 구분선 추가
+        let dividerView = UIView()
+        dividerView.backgroundColor = .gray30
+        dividerView.translatesAutoresizingMaskIntoConstraints = false
+        navigationController.navigationBar.addSubview(dividerView)
+        
+        dividerView.snp.makeConstraints { make in
+            make.bottom.equalTo(navigationController.navigationBar.snp.bottom)
+            make.leading.trailing.equalToSuperview()
+            make.height.equalTo(1)}
+    }
+    
     private func setUI() {
         self.view.addSubview(self.collectionView)
         self.collectionView.snp.makeConstraints { make in
