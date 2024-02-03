@@ -17,6 +17,7 @@ final class DefaultRealmService: RealmService {
         try! realm.write {
             realm.add(object)
         }
+        print(Realm.Configuration.defaultConfiguration.fileURL!)
     }
     
     func read<T: Object>(id: String) -> Observable<T> {

@@ -12,10 +12,10 @@ import RealmSwift
 class PhotoObject: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var imageURL: String
-    
-    init(from photo: Photo) {
-        super.init()
-        self.id = photo.imageName
-        self.imageURL = photo.imageURL
+}
+
+extension PhotoObject {
+    func toDomain() -> Photo {
+        return Photo(imageName: id, description: "", height: 0, width: 0, imageURL: imageURL)
     }
 }

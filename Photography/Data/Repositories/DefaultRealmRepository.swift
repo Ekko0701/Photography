@@ -31,12 +31,18 @@ extension DefaultRealmRepository: RealmRepository {
     }
     
     func createBookmark(photo: Photo) {
-        realmService.create(object: PhotoObject(from: photo))
+        realmService.create(object: toObject(photo: photo))
     }
     
     func deleteBookmark(photo: Photo) {
-        realmService.delete(object: PhotoObject(from: photo))
+        realmService.delete(object: toObject(photo: photo))
     }
     
-    
+    // TODO: - 재구성 필요
+    private func toObject(photo: Photo) -> PhotoObject {
+        let photoObject = PhotoObject()
+        photoObject.id = photo.imageName
+        photoObject.imageURL = photo.imageURL
+        return photoObject
+    }
 }

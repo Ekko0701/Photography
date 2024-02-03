@@ -13,6 +13,8 @@ protocol RandomPhotosUseCase {
     func fetchRandomPhotos(
         requestValue: RandomPhotosUseCaseRequestValue
     ) -> Observable<[Photo]>
+    
+    func createBookmark(photo: Photo)
 }
 
 final class DefaultRandomPhotosUseCase: RandomPhotosUseCase {
@@ -32,6 +34,10 @@ final class DefaultRandomPhotosUseCase: RandomPhotosUseCase {
         return randomPhotosRepository.fetchRandomPhotos(
             count: requestValue.count
         )
+    }
+    
+    func createBookmark(photo: Photo) {
+        realmRepository.createBookmark(photo: photo)
     }
 }
 

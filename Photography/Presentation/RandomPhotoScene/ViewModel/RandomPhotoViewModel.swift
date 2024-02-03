@@ -65,6 +65,11 @@ final class RandomPhotoViewModel {
                 return self?.fetchRandomPhotos(requestValue: RandomPhotosUseCaseRequestValue(count: 1)) ?? Observable.just([])
             }.subscribe(onNext: {[weak self] photo in
                 self?.photos.append(contentsOf: photo)
+                
+                // 북마크 생성
+                let bookmarkPhoto = self?.photos.first
+                self?.createBookmark(photo: bookmarkPhoto!)
+                
                 self?.photos.removeFirst()
                 output.didLoadData.accept(true)
             }).disposed(by: disposeBag)
@@ -95,5 +100,9 @@ extension RandomPhotoViewModel {
         return randomPhotosUseCase.fetchRandomPhotos(
             requestValue: requestValue
         )
+    }
+    
+    private func createBookmark(photo: Photo) {
+        randomPhotosUseCase.createBookmark(photo: photo)
     }
 }
