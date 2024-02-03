@@ -23,6 +23,7 @@ class HomeViewController: UIViewController {
     var isLoading: Bool = false
     
     private var fetchMorePhoto: PublishSubject<Void> = PublishSubject<Void>()
+    private var photoDidTap: PublishSubject<Photo> = PublishSubject<Photo>()
     
     // MARK: - UI elements
     
@@ -132,7 +133,8 @@ extension HomeViewController {
         let input = HomeViewModel.Input(
             viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in },
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
-            fetchMorePhoto: self.fetchMorePhoto
+            fetchMorePhoto: self.fetchMorePhoto,
+            photoSelected: self.photoDidTap
         )
         
         // OUTPUT
@@ -163,9 +165,23 @@ extension HomeViewController {
                 self?.updateFooterVisibility()
             })
             .disposed(by: disposeBag)
+        
+        output.presentDetailView
+            .subscribe(onNext: { [weak self] photoID in
+                self?.presentDetailViewController()
+            })
+            .disposed(by: disposeBag)
     }
 }
 
+// MARK: - Flow methos
+extension HomeViewController {
+    private func presentDetailViewController() {
+        let detailViewController = PhotoDetailViewController(viewModel: PhotoDetailViewModel())
+        detailViewController.modalPresentationStyle = .overFullScreen
+        self.present(detailViewController, animated: true)
+    }
+}
 
 // MARK: - CollectionView Delegate & DataSource
 extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSource {
@@ -226,6 +242,11 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             
             return header
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("탭: \(models[indexPath.row])")
+        self.photoDidTap.onNext(models[indexPath.row])
     }
 }
 

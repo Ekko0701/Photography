@@ -62,6 +62,10 @@ extension BookMarkCell: UICollectionViewDelegate, UICollectionViewDataSource {
         cell.configure(with: bookmarks[indexPath.row])
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("탭탭탭: \(indexPath)")
+    }
 }
 
 extension BookMarkCell: UICollectionViewDelegateFlowLayout {

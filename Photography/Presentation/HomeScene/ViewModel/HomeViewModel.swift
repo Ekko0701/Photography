@@ -19,12 +19,14 @@ final class HomeViewModel {
         let viewDidLoad: Observable<Void>
         let viewWillAppear: Observable<Void>
         let fetchMorePhoto: PublishSubject<Void>
+        let photoSelected: Observable<Photo>
     }
     
     struct Output {
         var didLoadPhotoList = PublishRelay<[Photo]>()
         var didLoadBookmarkPhotoList = PublishRelay<[Photo]>()
         var nowFetching: PublishSubject<Bool> = PublishSubject()
+        var presentDetailView = PublishRelay<String>()
     }
     
     init(
@@ -38,21 +40,6 @@ final class HomeViewModel {
         disposeBag: DisposeBag
     ) -> Output {
         let output = Output()
-        
-        // View Will Appear, 처음 ViewLoad 될 때
-//        input.viewDidLoad
-//            .flatMapLatest { [unowned self] _ in
-//                self.isFetching.accept(true)
-//                return self.fetchPhotoList(
-//                    requestValue: PhotoListUseCaseRequestValue(
-//                        page: self.page,
-//                        perPage: 10
-//                    )
-//                )
-//                .do(onNext: { _ in self.isFetching.accept(false)})
-//            }
-//            .bind(to: output.didLoadPhotoList)
-//            .disposed(by: disposeBag)
         
         input.viewDidLoad
             .flatMap { [unowned self] _ in
@@ -91,6 +78,11 @@ final class HomeViewModel {
         
         self.isFetching
             .bind(to: output.nowFetching)
+            .disposed(by: disposeBag)
+        
+        input.photoSelected
+            .map { $0.imageName }
+            .bind(to: output.presentDetailView)
             .disposed(by: disposeBag)
         
         return output
