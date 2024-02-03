@@ -45,7 +45,7 @@ final class RandomPhotoViewModel {
             .flatMap { [unowned self] _ in
                 return self.fetchRandomPhotos(
                     requestValue: RandomPhotosUseCaseRequestValue(
-                        count: 6))
+                        count: 3))
             }.subscribe(onNext: {[weak self] photos in
                 self?.photos = photos
                 output.didLoadData.accept(true)

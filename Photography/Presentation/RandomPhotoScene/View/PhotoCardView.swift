@@ -20,14 +20,19 @@ final class PhotoCardView: UIView {
     
     // MARK: - UI components
     private lazy var backgroundView: UIView = {
-      let background = UIView()
-      background.clipsToBounds = true
-      background.layer.cornerRadius = 10
-      return background
+        let background = UIView()
+        background.backgroundColor = .white
+        background.layer.cornerRadius = 10
+        background.layer.shadowColor = UIColor.black.cgColor
+        background.layer.shadowRadius = 25
+        background.layer.shadowOpacity = 0.12
+        background.layer.shadowOffset = CGSize(width: 0, height: 4)
+        return background
     }()
     
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.backgroundColor = .black
         imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = 10
@@ -42,8 +47,9 @@ final class PhotoCardView: UIView {
     
     private lazy var removeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "x"), for: .normal)
-        button.tintColor = .gray30
+        let xImage = UIImage(named: "x")?.resized(to: CGSize(width: 36, height: 36)).withRenderingMode(.alwaysTemplate)
+        button.setImage(xImage, for: .normal)
+        button.tintColor = .gray60
         button.layer.cornerRadius = 26
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray30.cgColor
@@ -52,17 +58,19 @@ final class PhotoCardView: UIView {
     
     private lazy var bookmarkButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "bookmark"), for: .normal)
+        let bookmarkImage = UIImage(named: "bookmark")?.resized(to: CGSize(width: 29.33, height: 31.72)).withRenderingMode(.alwaysTemplate)
+        button.setImage(bookmarkImage, for: .normal)
         button.tintColor = .white
-        button.backgroundColor = .systemRed
+        button.backgroundColor = .brandColor
         button.layer.cornerRadius = 36
         return button
     }()
     
     private lazy var infoButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "information"), for: .normal)
-        button.tintColor = .gray30
+        let informationImage = UIImage(named: "information")?.resized(to: CGSize(width: 36, height: 36)).withRenderingMode(.alwaysTemplate)
+        button.setImage(informationImage, for: .normal)
+        button.tintColor = .gray60
         button.layer.cornerRadius = 26
         button.layer.borderWidth = 1
         button.layer.borderColor = UIColor.gray30.cgColor
@@ -83,11 +91,8 @@ final class PhotoCardView: UIView {
     }
     
     private func setUI() {
-        self.backgroundColor = .gray30
-        imageView.backgroundColor = .black
-        self.layer.cornerRadius = 10
-        self.layer.shadowColor = UIColor.black.cgColor
-        self.layer.shadowRadius = 10
+        // self.layer.cornerRadius = 10
+        
         
         self.addSubview(backgroundView)
         backgroundView.snp.makeConstraints {

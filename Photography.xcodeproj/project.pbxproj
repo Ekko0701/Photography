@@ -55,6 +55,7 @@
 		6AF1BAA82B6E35C1009F8E44 /* RandomPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */; };
 		6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */; };
 		6AF1BAAE2B6E647B009F8E44 /* PhotoCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */; };
+		6AF1BAB02B6E9F5C009F8E44 /* UIImage+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAAF2B6E9F5C009F8E44 /* UIImage+Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,7 @@
 		6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosUseCase.swift; sourceTree = "<group>"; };
 		6AF1BAAB2B6E3826009F8E44 /* RandomPhotoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoViewModel.swift; sourceTree = "<group>"; };
 		6AF1BAAD2B6E647B009F8E44 /* PhotoCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCardView.swift; sourceTree = "<group>"; };
+		6AF1BAAF2B6E9F5C009F8E44 /* UIImage+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+Extensions.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -356,6 +358,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA962B6E18DE009F8E44 /* UIColor+Extensions.swift */,
+				6AF1BAAF2B6E9F5C009F8E44 /* UIImage+Extensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -514,6 +517,7 @@
 				6AF1BA172B6CF5A9009F8E44 /* AppDelegate.swift in Sources */,
 				6AF1BA8E2B6D804C009F8E44 /* BookmarkItemCell.swift in Sources */,
 				6AF1BA8C2B6D774E009F8E44 /* BookmarkCell.swift in Sources */,
+				6AF1BAB02B6E9F5C009F8E44 /* UIImage+Extensions.swift in Sources */,
 				6AF1BA692B6CFFC5009F8E44 /* PhotoListRequestDTO.swift in Sources */,
 				6AF1BA6F2B6D0018009F8E44 /* NetworkError.swift in Sources */,
 				6AF1BA322B6CFAD3009F8E44 /* MainTabBarController.swift in Sources */,
