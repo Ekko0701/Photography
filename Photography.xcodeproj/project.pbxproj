@@ -303,6 +303,7 @@
 		6AF1BA422B6CFE0E009F8E44 /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BAC62B6ECEFC009F8E44 /* PhotoDetail */,
 				6AF1BAA22B6E3118009F8E44 /* RandomPhotos */,
 				6AF1BAA12B6E310E009F8E44 /* PhotoList */,
 			);
@@ -433,6 +434,13 @@
 				6AF1BABA2B6EB20C009F8E44 /* PhotoObject.swift */,
 			);
 			path = DataMapping;
+			sourceTree = "<group>";
+		};
+		6AF1BAC62B6ECEFC009F8E44 /* PhotoDetail */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = PhotoDetail;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

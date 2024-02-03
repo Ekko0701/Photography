@@ -47,6 +47,8 @@ extension DefaultRealmRepository: RealmRepository {
         let photoObject = PhotoObject()
         photoObject.id = photo.imageName
         photoObject.imageURL = photo.imageURL
+        photoObject.width = Float(photo.width)
+        photoObject.height = Float(photo.height)
         return photoObject
     }
 }

@@ -149,7 +149,7 @@ extension HomeViewController {
         
         output.didLoadBookmarkPhotoList
             .subscribe(onNext: { [weak self] photoList in
-                // print("북마크 결과: \(photoList)")
+                print("북마크 결과: \(photoList)")
                 self?.bookmarkDummyData = photoList
                 self?.collectionView.reloadData()
             })
@@ -231,7 +231,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
-            return CGSize(width: view.frame.size.width, height: 195)
+            return CGSize(width: view.frame.size.width, height: 128)
         } else {
             let imageWidth: CGFloat = self.models[indexPath.row].width
             let imageHeight: CGFloat = self.models[indexPath.row].height
@@ -251,7 +251,16 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
-        return 43
+        
+        if bookmarkDummyData.isEmpty {
+            if section == 0 {
+                return 0
+            } else {
+                return 43
+            }
+        } else {
+            return 43
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForFooterIn section: Int) -> CGFloat {

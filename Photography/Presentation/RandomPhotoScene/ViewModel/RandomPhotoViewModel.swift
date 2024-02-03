@@ -68,6 +68,7 @@ final class RandomPhotoViewModel {
                 
                 // 북마크 생성
                 let bookmarkPhoto = self?.photos.first
+                print("북마크 생성: \(bookmarkPhoto)")
                 self?.createBookmark(photo: bookmarkPhoto!)
                 
                 self?.photos.removeFirst()

@@ -12,10 +12,18 @@ import RealmSwift
 class PhotoObject: Object {
     @Persisted(primaryKey: true) var id: String
     @Persisted var imageURL: String
+    @Persisted var width: Float
+    @Persisted var height: Float
 }
 
 extension PhotoObject {
     func toDomain() -> Photo {
-        return Photo(imageName: id, description: "", height: 0, width: 0, imageURL: imageURL)
+        return Photo(
+            imageName: id,
+            description: "",
+            height: CGFloat(height),
+            width: CGFloat(width),
+            imageURL: imageURL
+        )
     }
 }

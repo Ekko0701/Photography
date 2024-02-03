@@ -18,8 +18,10 @@ class BookMarkCell: UICollectionViewCell {
         layout.scrollDirection = .horizontal
         layout.minimumLineSpacing = 10
         layout.minimumInteritemSpacing = 10
+    
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.backgroundColor = .clear
+        collectionView.contentInset = UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 0)
         collectionView.showsHorizontalScrollIndicator = false
         collectionView.register(BookmarkItemCell.self, forCellWithReuseIdentifier: BookmarkItemCell.identifier)
         collectionView.delegate = self
@@ -64,6 +66,16 @@ extension BookMarkCell: UICollectionViewDelegate, UICollectionViewDataSource {
 
 extension BookMarkCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: 100, height: 195)
+        
+        let imageWidth: CGFloat = self.bookmarks[indexPath.row].width
+        let imageHeight: CGFloat = self.bookmarks[indexPath.row].height
+        
+        let imageViewHeight: CGFloat = 128
+        
+        let ratio = imageWidth / imageHeight
+        let imageViewWidth: CGFloat = imageViewHeight / ratio
+        
+        return CGSize(width: imageViewWidth,
+                      height: imageViewHeight)
     }
 }
