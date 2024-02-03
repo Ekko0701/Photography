@@ -8,6 +8,8 @@
 import Foundation
 import UIKit
 
+import NukeExtensions
+
 class BookmarkItemCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "BookmarkItemCell"
@@ -38,7 +40,7 @@ class BookmarkItemCell: UICollectionViewCell {
         }
     }
     
-    func configure(image: UIImage) {
-        imageView.image = image
+    func configure(with photo: Photo) {
+        NukeExtensions.loadImage(with: URL(string: photo.imageURL), into: imageView)
     }
 }

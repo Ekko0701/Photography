@@ -20,14 +20,18 @@ final class DefaultRealmRepository{
 
 extension DefaultRealmRepository: RealmRepository {
     func fetchPhotos() -> Observable<[Photo]> {
-        realmService.readAll()
-            .flatMap { data in
-                if let photoObjects = data as? [PhotoObject] {
-                    return Observable.just(photoObjects.map { $0.toDomain() })
-                } else {
-                    return Observable.just([])
-                }
-            }.asObservable()
+        var photoObservable: Observable<[PhotoObject]> = realmService.readAll()
+        photoObservable = photoObservable.flatMap { data in
+            if let photoObjects = data as? [PhotoObject] {
+                return Observable.just(photoObjects)
+            } else {
+                return Observable.just([])
+            }
+        }.asObservable()
+        
+        return photoObservable.map { photoObjects in
+            photoObjects.map { $0.toDomain() }
+        }
     }
     
     func createBookmark(photo: Photo) {

@@ -13,15 +13,20 @@ protocol PhotoListUseCase {
     func fetchPhotoList(
         requestValue: PhotoListUseCaseRequestValue
     ) -> Observable<[Photo]>
+    
+    func fetchBookmarkPhotoList() -> Observable<[Photo]>
 }
 
 final class DefaultPhotoListUseCase: PhotoListUseCase {
     private let photoRepository: PhotoListRepository
+    private let realmRepository: RealmRepository
     
     init(
-        photoRepository: PhotoListRepository
+        photoRepository: PhotoListRepository,
+        realmRepository: RealmRepository
     ) {
         self.photoRepository = photoRepository
+        self.realmRepository = realmRepository
     }
     
     func fetchPhotoList(
@@ -31,6 +36,10 @@ final class DefaultPhotoListUseCase: PhotoListUseCase {
             page: requestValue.page,
             perPage: requestValue.perPage
         )
+    }
+    
+    func fetchBookmarkPhotoList() -> Observable<[Photo]> {
+        return realmRepository.fetchPhotos()
     }
     
 }

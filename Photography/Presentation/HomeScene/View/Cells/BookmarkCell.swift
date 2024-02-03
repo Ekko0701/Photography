@@ -11,7 +11,7 @@ import UIKit
 class BookMarkCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "BookMarkCell"
-    
+    private var bookmarks: [Photo] = []
     // MARK: - UI Components
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -43,22 +43,27 @@ class BookMarkCell: UICollectionViewCell {
             $0.edges.equalToSuperview()
         }
     }
+    
+    func configure(bookmarks: [Photo]) {
+        self.bookmarks = bookmarks
+        self.collectionView.reloadData()
+    }
 }
 
 extension BookMarkCell: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 10
+        return bookmarks.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: BookmarkItemCell.identifier, for: indexPath) as? BookmarkItemCell else { return UICollectionViewCell() }
-        cell.configure(image: UIImage(systemName: "house.fill")!)
+        cell.configure(with: bookmarks[indexPath.row])
         return cell
     }
 }
 
 extension BookMarkCell: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        return CGSize(width: self.frame.size.width, height: 195)
+        return CGSize(width: 100, height: 195)
     }
 }

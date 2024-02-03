@@ -47,6 +47,7 @@ class HomeViewController: UIViewController {
     init(viewModel: HomeViewModel) {
         super.init(nibName: nil, bundle: nil)
         self.homeViewModel = viewModel
+        self.bindViewModel()
     }
     
     required init?(coder: NSCoder) {
@@ -60,7 +61,11 @@ class HomeViewController: UIViewController {
         self.setNavigation()
         self.setCollectionView()
         self.setUI()
-        self.bindViewModel()
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
     }
     
     override func viewDidLayoutSubviews() {
@@ -123,6 +128,7 @@ extension HomeViewController {
         
         // INPUT
         let input = HomeViewModel.Input(
+            viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in },
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
             fetchMorePhoto: self.fetchMorePhoto
         )
@@ -136,6 +142,15 @@ extension HomeViewController {
         output.didLoadPhotoList
             .subscribe(onNext: { [weak self] photoList in
                 self?.models.append(contentsOf: photoList)
+                self?.collectionView.reloadData()
+                
+            })
+            .disposed(by: disposeBag)
+        
+        output.didLoadBookmarkPhotoList
+            .subscribe(onNext: { [weak self] photoList in
+                // print("북마크 결과: \(photoList)")
+                self?.bookmarkDummyData = photoList
                 self?.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -171,6 +186,8 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             ) as? BookMarkCell else {
                 return UICollectionViewCell()
             }
+            
+            cell.configure(bookmarks: bookmarkDummyData)
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(

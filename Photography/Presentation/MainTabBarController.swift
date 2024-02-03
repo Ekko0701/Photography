@@ -27,6 +27,8 @@ class MainTabBarController: UITabBarController {
             photoListUseCase: DefaultPhotoListUseCase(
                 photoRepository: DefaultPhotoListRepository(
                     alamofireService: DefaultAlamofireNetworkService()
+                ), realmRepository: DefaultRealmRepository(
+                    realmService: DefaultRealmService()
                 )
             )
         )

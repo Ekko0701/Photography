@@ -16,12 +16,14 @@ final class HomeViewModel {
     private var isFetching = BehaviorRelay<Bool>(value: false)
     
     struct Input {
+        let viewDidLoad: Observable<Void>
         let viewWillAppear: Observable<Void>
         let fetchMorePhoto: PublishSubject<Void>
     }
     
     struct Output {
         var didLoadPhotoList = PublishRelay<[Photo]>()
+        var didLoadBookmarkPhotoList = PublishRelay<[Photo]>()
         var nowFetching: PublishSubject<Bool> = PublishSubject()
     }
     
@@ -38,18 +40,35 @@ final class HomeViewModel {
         let output = Output()
         
         // View Will Appear, 처음 ViewLoad 될 때
-        input.viewWillAppear
-            .flatMapLatest { [unowned self] _ in
-                self.isFetching.accept(true)
+//        input.viewDidLoad
+//            .flatMapLatest { [unowned self] _ in
+//                self.isFetching.accept(true)
+//                return self.fetchPhotoList(
+//                    requestValue: PhotoListUseCaseRequestValue(
+//                        page: self.page,
+//                        perPage: 10
+//                    )
+//                )
+//                .do(onNext: { _ in self.isFetching.accept(false)})
+//            }
+//            .bind(to: output.didLoadPhotoList)
+//            .disposed(by: disposeBag)
+        
+        input.viewDidLoad
+            .flatMap { [unowned self] _ in
                 return self.fetchPhotoList(
                     requestValue: PhotoListUseCaseRequestValue(
                         page: self.page,
                         perPage: 10
                     )
                 )
-                .do(onNext: { _ in self.isFetching.accept(false)})
-            }
-            .bind(to: output.didLoadPhotoList)
+            }.bind(to: output.didLoadPhotoList)
+            .disposed(by: disposeBag)
+        
+        input.viewWillAppear
+            .flatMap { [weak self] _ in
+                return self?.photoListUseCase.fetchBookmarkPhotoList() ?? Observable.just([])
+            }.bind(to: output.didLoadBookmarkPhotoList)
             .disposed(by: disposeBag)
         
         input.fetchMorePhoto
