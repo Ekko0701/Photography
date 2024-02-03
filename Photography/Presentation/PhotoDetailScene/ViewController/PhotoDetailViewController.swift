@@ -176,7 +176,8 @@ class PhotoDetailViewController: UIViewController {
         guard let viewModel = self.photoDetailViewModel else { return }
         
         let input = PhotoDetailViewModel.Input(
-            viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in }
+            viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in },
+            closeButtonTapped: self.closeButton.rx.tap.map { _ in }
         )
         
         let output = viewModel.transform(
@@ -196,6 +197,12 @@ class PhotoDetailViewController: UIViewController {
                     width: CGFloat(photoDetail.width),
                     height: CGFloat(photoDetail.height)
                 )
+            })
+            .disposed(by: disposeBag)
+        
+        output.closeButtonTapped
+            .drive(onNext: { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
             })
             .disposed(by: disposeBag)
     }

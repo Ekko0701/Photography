@@ -17,10 +17,12 @@ final class PhotoDetailViewModel {
     
     struct Input {
         let viewDidLoad: Observable<Void>
+        let closeButtonTapped: Observable<Void>
     }
     
     struct Output {
         var didLoadPhotoDetail: Driver<PhotoDetail>
+        var closeButtonTapped: Driver<Void>
     }
     
     init(
@@ -40,7 +42,13 @@ final class PhotoDetailViewModel {
                 return self.photoDetailUseCase.fetchPhotoDetail(from: self.photoID)
             }.asDriver(onErrorJustReturn: PhotoDetail(id: "nil", slug: "nil", title: "nil", width: 0, height: 0, imageURL: "", description: "nil", userName: "nil", tags: []))
         
-        let output = Output(didLoadPhotoDetail: photoDetailDriver)
+        let closeViewDriver = input.closeButtonTapped
+            .asDriver(onErrorJustReturn: ())
+        
+        let output = Output(
+            didLoadPhotoDetail: photoDetailDriver,
+            closeButtonTapped: closeViewDriver
+        )
         
         return output
     }
