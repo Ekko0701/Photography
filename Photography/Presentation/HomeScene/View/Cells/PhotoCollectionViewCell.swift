@@ -20,6 +20,7 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         let imageView = UIImageView()
         imageView.backgroundColor = .systemRed
         imageView.contentMode = .scaleAspectFill
+        imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
         return imageView
     }()

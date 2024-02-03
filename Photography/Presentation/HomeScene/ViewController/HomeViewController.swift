@@ -18,7 +18,7 @@ class HomeViewController: UIViewController {
     var homeViewModel: HomeViewModel?
     private let disposeBag = DisposeBag()
     private var models = [Photo]()
-    private var bookmarkDummyData: [Photo] = [Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "d")]
+    private var bookmarkDummyData: [Photo] = [Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "d")] // Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "d")
     
     var isLoading: Bool = false
     
@@ -31,9 +31,15 @@ class HomeViewController: UIViewController {
         layout.itemRenderDirection = .leftToRight
         layout.columnCount = 2 // 2행 설정
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
+        
+        // Register Cells
         collectionView.register(BookMarkCell.self, forCellWithReuseIdentifier: BookMarkCell.identifier)
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
+        
+        // Register ReusableView
         collectionView.register(LoadingIndicatorReusableView.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionFooter, withReuseIdentifier: LoadingIndicatorReusableView.identifier)
+        collectionView.register(PhotoCollectionViewHeader.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: PhotoCollectionViewHeader.identifier)
+        
         return collectionView
     }()
     
@@ -178,12 +184,28 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
         }
     }
     
+    // Configure Header & Footer
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionView.elementKindSectionFooter {
             let footer = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: LoadingIndicatorReusableView.identifier, for: indexPath) as! LoadingIndicatorReusableView
             return footer
+        } else {
+            guard let header = collectionView.dequeueReusableSupplementaryView(
+                ofKind: UICollectionView.elementKindSectionHeader,
+                withReuseIdentifier: PhotoCollectionViewHeader.identifier,
+                for: indexPath
+            ) as? PhotoCollectionViewHeader else {
+                return UICollectionReusableView()
+            }
+            
+            if indexPath.section == 0 {
+                header.configure(title: "북마크")
+            } else {
+                header.configure(title: "최신 이미지")
+            }
+            
+            return header
         }
-        return UICollectionReusableView()
     }
 }
 
@@ -191,7 +213,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
 extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if indexPath.section == 0 {
-            return CGSize(width: view.frame.size.width, height: 50)
+            return CGSize(width: view.frame.size.width, height: 195)
         } else {
             let imageWidth: CGFloat = self.models[indexPath.row].width
             let imageHeight: CGFloat = self.models[indexPath.row].height
@@ -210,12 +232,23 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
         return section == 0 ? 1 : 2
     }
     
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
+        return 43
+    }
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForFooterIn section: Int) -> CGFloat {
         if section == 0 {
             return 0
         } else {
             return 150
         }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetsFor section: Int) -> UIEdgeInsets {
+        if section == 1{
+            return UIEdgeInsets(top: 0, left: 16, bottom: 0, right: 16)
+        }
+        return UIEdgeInsets()
     }
 }
 

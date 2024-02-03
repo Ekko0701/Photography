@@ -56,3 +56,9 @@ extension BookMarkCell: UICollectionViewDelegate, UICollectionViewDataSource {
         return cell
     }
 }
+
+extension BookMarkCell: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        return CGSize(width: self.frame.size.width, height: 195)
+    }
+}
