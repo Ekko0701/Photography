@@ -10,7 +10,9 @@ import Foundation
 import RxSwift
 
 protocol PhotoListUseCase {
-    func fetchPhotoList(requestValue: PhotoListUseCaseRequestValue) -> Observable<[Photo]>
+    func fetchPhotoList(
+        requestValue: PhotoListUseCaseRequestValue
+    ) -> Observable<[Photo]>
 }
 
 final class DefaultPhotoListUseCase: PhotoListUseCase {
@@ -33,7 +35,7 @@ final class DefaultPhotoListUseCase: PhotoListUseCase {
     
 }
 
-// 사진 리스트 요청 시 필요한 값
+/// 사진 리스트 요청 시 필요한 값
 struct PhotoListUseCaseRequestValue: Codable {
     // 키 값은 RequestDTO 생성 시 할당
     /// 페이지
