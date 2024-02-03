@@ -32,6 +32,8 @@ class HomeViewController: UIViewController {
         layout.columnCount = 2 // 2행 설정
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         
+        collectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 0, right: 0)
+        
         // Register Cells
         collectionView.register(BookMarkCell.self, forCellWithReuseIdentifier: BookMarkCell.identifier)
         collectionView.register(PhotoCollectionViewCell.self, forCellWithReuseIdentifier: PhotoCollectionViewCell.identifier)
@@ -256,10 +258,10 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
             if section == 0 {
                 return 0
             } else {
-                return 43
+                return 50
             }
         } else {
-            return 43
+            return 50
         }
     }
     

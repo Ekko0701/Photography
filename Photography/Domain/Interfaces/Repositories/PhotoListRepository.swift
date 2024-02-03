@@ -16,7 +16,7 @@ protocol PhotoListRepository {
         perPage: Int
     ) -> Observable<[Photo]>
     
-//    func fetchPhotoDetail(
-//        id: String
-//    ) -> Observable<Photo>
+    func fetchPhotoDetail(
+        id: String
+    ) -> Observable<PhotoDetail>
 }

@@ -64,6 +64,9 @@
 		6AF1BABE2B6EB3AE009F8E44 /* RealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */; };
 		6AF1BAC02B6EB3BC009F8E44 /* DefaultRealmService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */; };
 		6AF1BAC22B6EB5D8009F8E44 /* RealmError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */; };
+		6AF1BAC82B6EDC2A009F8E44 /* PhotoDetailResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAC72B6EDC2A009F8E44 /* PhotoDetailResponseDTO+Mapping.swift */; };
+		6AF1BACA2B6EDC4F009F8E44 /* PhotoDetailRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAC92B6EDC4F009F8E44 /* PhotoDetailRequestDTO.swift */; };
+		6AF1BACC2B6EDFDE009F8E44 /* PhotoDetail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BACB2B6EDFDE009F8E44 /* PhotoDetail.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -109,6 +112,9 @@
 		6AF1BABD2B6EB3AE009F8E44 /* RealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmService.swift; sourceTree = "<group>"; };
 		6AF1BABF2B6EB3BC009F8E44 /* DefaultRealmService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRealmService.swift; sourceTree = "<group>"; };
 		6AF1BAC12B6EB5D8009F8E44 /* RealmError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmError.swift; sourceTree = "<group>"; };
+		6AF1BAC72B6EDC2A009F8E44 /* PhotoDetailResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "PhotoDetailResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
+		6AF1BAC92B6EDC4F009F8E44 /* PhotoDetailRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailRequestDTO.swift; sourceTree = "<group>"; };
+		6AF1BACB2B6EDFDE009F8E44 /* PhotoDetail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetail.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,6 +255,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA3A2B6CFD4B009F8E44 /* Photo.swift */,
+				6AF1BACB2B6EDFDE009F8E44 /* PhotoDetail.swift */,
 			);
 			path = Entities;
 			sourceTree = "<group>";
@@ -439,6 +446,8 @@
 		6AF1BAC62B6ECEFC009F8E44 /* PhotoDetail */ = {
 			isa = PBXGroup;
 			children = (
+				6AF1BAC72B6EDC2A009F8E44 /* PhotoDetailResponseDTO+Mapping.swift */,
+				6AF1BAC92B6EDC4F009F8E44 /* PhotoDetailRequestDTO.swift */,
 			);
 			path = PhotoDetail;
 			sourceTree = "<group>";
@@ -543,12 +552,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				6AF1BA762B6D00F4009F8E44 /* UnsplashAPIKey.swift in Sources */,
+				6AF1BACC2B6EDFDE009F8E44 /* PhotoDetail.swift in Sources */,
 				6AF1BAB72B6EAE23009F8E44 /* RealmRepository.swift in Sources */,
 				6AF1BAAC2B6E3826009F8E44 /* RandomPhotoViewModel.swift in Sources */,
 				6AF1BA862B6D16A6009F8E44 /* HomeViewModel.swift in Sources */,
 				6AF1BA742B6D0054009F8E44 /* AlamofireNetworkServices.swift in Sources */,
 				6AF1BAA62B6E3138009F8E44 /* RandomPhotosRequestDTO.swift in Sources */,
 				6AF1BA632B6CFEF5009F8E44 /* PhotoListUseCase.swift in Sources */,
+				6AF1BAC82B6EDC2A009F8E44 /* PhotoDetailResponseDTO+Mapping.swift in Sources */,
 				6AF1BA722B6D003E009F8E44 /* DefaultAlamofireNetworkService.swift in Sources */,
 				6AF1BAA42B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift in Sources */,
 				6AF1BABE2B6EB3AE009F8E44 /* RealmService.swift in Sources */,
@@ -566,6 +577,7 @@
 				6AF1BA1B2B6CF5A9009F8E44 /* RandomPhotoViewController.swift in Sources */,
 				6AF1BA992B6E1E88009F8E44 /* PhotoCollectionViewHeader.swift in Sources */,
 				6AF1BA9E2B6E3075009F8E44 /* RandomPhotosRepository.swift in Sources */,
+				6AF1BACA2B6EDC4F009F8E44 /* PhotoDetailRequestDTO.swift in Sources */,
 				6AF1BA652B6CFF0E009F8E44 /* PhotoListRepository.swift in Sources */,
 				6AF1BA672B6CFF6B009F8E44 /* PhotoListResponseDTO+Mapping.swift in Sources */,
 				6AF1BA172B6CF5A9009F8E44 /* AppDelegate.swift in Sources */,

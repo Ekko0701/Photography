@@ -42,4 +42,27 @@ extension DefaultPhotoListRepository: PhotoListRepository {
             }
         }
     }
+    
+    func fetchPhotoDetail(id: String) -> RxSwift.Observable<PhotoDetail> {
+        let requestDTO = PhotoDetailRequestDTO(
+            key: UnSplashAPIKey.publicKey
+        )
+        
+        return self.alamofireService.get(
+            with: requestDTO,
+            url: BaseURLs.unsplash + "photos/\(id)",
+            headers: [
+                "Content-Type": "application/json"
+            ]
+        ).map { data in
+            switch data {
+            case .success(let responseData):
+                let responseDTO = try JSONDecoder().decode(PhotoDetailResponseDTO.self, from: responseData)
+                return responseDTO.toDomain()
+            
+            case .failure(let error):
+                throw error
+            }
+        }
+    }
 }

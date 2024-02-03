@@ -12,7 +12,7 @@ class LoadingIndicatorReusableView: UICollectionReusableView {
     static let identifier = "LoadingIndicatorReusableView"
     private let loadingIndicator: UIActivityIndicatorView = {
         let indicator = UIActivityIndicatorView()
-        indicator.style = .large
+        indicator.style = .medium
         indicator.color = .black
         indicator.startAnimating()
         return indicator
