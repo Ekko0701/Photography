@@ -48,10 +48,10 @@ class MainTabBarController: UITabBarController {
         homeNavigationController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "house"), tag: 0)
         homeNavigationController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
         
-        let favoriteViewController = BookmarkViewController()
-        favoriteViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "cards"), tag: 1)
-        favoriteViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
+        let randomPhotoViewController = RandomPhotoViewController()
+        randomPhotoViewController.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "cards"), tag: 1)
+        randomPhotoViewController.tabBarItem.imageInsets = UIEdgeInsets(top: 6, left: 0, bottom: -6, right: 0)
 
-        self.setViewControllers([homeNavigationController, favoriteViewController], animated: true)
+        self.setViewControllers([homeNavigationController, randomPhotoViewController], animated: true)
     }
 }

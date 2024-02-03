@@ -7,7 +7,7 @@
 
 import UIKit
 
-class BookmarkViewController: UIViewController {
+class RandomPhotoViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

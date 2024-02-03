@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		6AF1BA172B6CF5A9009F8E44 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA162B6CF5A9009F8E44 /* AppDelegate.swift */; };
 		6AF1BA192B6CF5A9009F8E44 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA182B6CF5A9009F8E44 /* SceneDelegate.swift */; };
-		6AF1BA1B2B6CF5A9009F8E44 /* BookmarkViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA1A2B6CF5A9009F8E44 /* BookmarkViewController.swift */; };
+		6AF1BA1B2B6CF5A9009F8E44 /* RandomPhotoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA1A2B6CF5A9009F8E44 /* RandomPhotoViewController.swift */; };
 		6AF1BA202B6CF5AA009F8E44 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AF1BA1F2B6CF5AA009F8E44 /* Assets.xcassets */; };
 		6AF1BA232B6CF5AA009F8E44 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6AF1BA212B6CF5AA009F8E44 /* LaunchScreen.storyboard */; };
 		6AF1BA2B2B6CF5E7009F8E44 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 6AF1BA2A2B6CF5E7009F8E44 /* README.md */; };
@@ -47,13 +47,19 @@
 		6AF1BA8E2B6D804C009F8E44 /* BookmarkItemCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA8D2B6D804C009F8E44 /* BookmarkItemCell.swift */; };
 		6AF1BA972B6E18DE009F8E44 /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA962B6E18DE009F8E44 /* UIColor+Extensions.swift */; };
 		6AF1BA992B6E1E88009F8E44 /* PhotoCollectionViewHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA982B6E1E88009F8E44 /* PhotoCollectionViewHeader.swift */; };
+		6AF1BA9C2B6E2EB9009F8E44 /* Shuffle in Frameworks */ = {isa = PBXBuildFile; productRef = 6AF1BA9B2B6E2EB9009F8E44 /* Shuffle */; };
+		6AF1BA9E2B6E3075009F8E44 /* RandomPhotosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA9D2B6E3075009F8E44 /* RandomPhotosRepository.swift */; };
+		6AF1BAA02B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BA9F2B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift */; };
+		6AF1BAA42B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA32B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift */; };
+		6AF1BAA62B6E3138009F8E44 /* RandomPhotosRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */; };
+		6AF1BAA82B6E35C1009F8E44 /* RandomPhotosUseCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		6AF1BA132B6CF5A9009F8E44 /* Photography.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Photography.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AF1BA162B6CF5A9009F8E44 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		6AF1BA182B6CF5A9009F8E44 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		6AF1BA1A2B6CF5A9009F8E44 /* BookmarkViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkViewController.swift; sourceTree = "<group>"; };
+		6AF1BA1A2B6CF5A9009F8E44 /* RandomPhotoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotoViewController.swift; sourceTree = "<group>"; };
 		6AF1BA1F2B6CF5AA009F8E44 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AF1BA222B6CF5AA009F8E44 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		6AF1BA242B6CF5AA009F8E44 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -78,6 +84,11 @@
 		6AF1BA8D2B6D804C009F8E44 /* BookmarkItemCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookmarkItemCell.swift; sourceTree = "<group>"; };
 		6AF1BA962B6E18DE009F8E44 /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		6AF1BA982B6E1E88009F8E44 /* PhotoCollectionViewHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewHeader.swift; sourceTree = "<group>"; };
+		6AF1BA9D2B6E3075009F8E44 /* RandomPhotosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosRepository.swift; sourceTree = "<group>"; };
+		6AF1BA9F2B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultRandomPhotosRepository.swift; sourceTree = "<group>"; };
+		6AF1BAA32B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "RandomPhotosResponseDTO+Mapping.swift"; sourceTree = "<group>"; };
+		6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosRequestDTO.swift; sourceTree = "<group>"; };
+		6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RandomPhotosUseCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,6 +108,7 @@
 				6AF1BA5B2B6CFED3009F8E44 /* RxBlocking-Dynamic in Frameworks */,
 				6AF1BA562B6CFEC5009F8E44 /* SnapKit-Dynamic in Frameworks */,
 				6AF1BA4F2B6CFEBB009F8E44 /* NukeUI in Frameworks */,
+				6AF1BA9C2B6E2EB9009F8E44 /* Shuffle in Frameworks */,
 				6AF1BA7F2B6D1638009F8E44 /* CHTCollectionViewWaterfallLayoutObjC in Frameworks */,
 				6AF1BA5F2B6CFED3009F8E44 /* RxCocoa-Dynamic in Frameworks */,
 			);
@@ -160,7 +172,7 @@
 			children = (
 				6AF1BA312B6CFAD3009F8E44 /* MainTabBarController.swift */,
 				6AF1BA332B6CFB05009F8E44 /* HomeScene */,
-				6AF1BA342B6CFB0D009F8E44 /* FavoriteScene */,
+				6AF1BA342B6CFB0D009F8E44 /* RandomPhotoScene */,
 			);
 			path = Presentation;
 			sourceTree = "<group>";
@@ -175,12 +187,12 @@
 			path = HomeScene;
 			sourceTree = "<group>";
 		};
-		6AF1BA342B6CFB0D009F8E44 /* FavoriteScene */ = {
+		6AF1BA342B6CFB0D009F8E44 /* RandomPhotoScene */ = {
 			isa = PBXGroup;
 			children = (
 				6AF1BA382B6CFB44009F8E44 /* ViewController */,
 			);
-			path = FavoriteScene;
+			path = RandomPhotoScene;
 			sourceTree = "<group>";
 		};
 		6AF1BA372B6CFB3C009F8E44 /* ViewController */ = {
@@ -194,7 +206,7 @@
 		6AF1BA382B6CFB44009F8E44 /* ViewController */ = {
 			isa = PBXGroup;
 			children = (
-				6AF1BA1A2B6CF5A9009F8E44 /* BookmarkViewController.swift */,
+				6AF1BA1A2B6CF5A9009F8E44 /* RandomPhotoViewController.swift */,
 			);
 			path = ViewController;
 			sourceTree = "<group>";
@@ -221,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA622B6CFEF5009F8E44 /* PhotoListUseCase.swift */,
+				6AF1BAA72B6E35C1009F8E44 /* RandomPhotosUseCase.swift */,
 			);
 			path = Usecases;
 			sourceTree = "<group>";
@@ -237,6 +250,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA642B6CFF0E009F8E44 /* PhotoListRepository.swift */,
+				6AF1BA9D2B6E3075009F8E44 /* RandomPhotosRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -263,8 +277,8 @@
 		6AF1BA422B6CFE0E009F8E44 /* DataMapping */ = {
 			isa = PBXGroup;
 			children = (
-				6AF1BA662B6CFF6B009F8E44 /* PhotoListResponseDTO+Mapping.swift */,
-				6AF1BA682B6CFFC5009F8E44 /* PhotoListRequestDTO.swift */,
+				6AF1BAA22B6E3118009F8E44 /* RandomPhotos */,
+				6AF1BAA12B6E310E009F8E44 /* PhotoList */,
 			);
 			path = DataMapping;
 			sourceTree = "<group>";
@@ -273,6 +287,7 @@
 			isa = PBXGroup;
 			children = (
 				6AF1BA6A2B6CFFEE009F8E44 /* DefaultPhotoListRepository.swift */,
+				6AF1BA9F2B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift */,
 			);
 			path = Repositories;
 			sourceTree = "<group>";
@@ -339,6 +354,24 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		6AF1BAA12B6E310E009F8E44 /* PhotoList */ = {
+			isa = PBXGroup;
+			children = (
+				6AF1BA662B6CFF6B009F8E44 /* PhotoListResponseDTO+Mapping.swift */,
+				6AF1BA682B6CFFC5009F8E44 /* PhotoListRequestDTO.swift */,
+			);
+			path = PhotoList;
+			sourceTree = "<group>";
+		};
+		6AF1BAA22B6E3118009F8E44 /* RandomPhotos */ = {
+			isa = PBXGroup;
+			children = (
+				6AF1BAA32B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift */,
+				6AF1BAA52B6E3138009F8E44 /* RandomPhotosRequestDTO.swift */,
+			);
+			path = RandomPhotos;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -370,6 +403,7 @@
 				6AF1BA602B6CFED3009F8E44 /* RxRelay */,
 				6AF1BA7C2B6D1638009F8E44 /* CHTCollectionViewWaterfallLayout */,
 				6AF1BA7E2B6D1638009F8E44 /* CHTCollectionViewWaterfallLayoutObjC */,
+				6AF1BA9B2B6E2EB9009F8E44 /* Shuffle */,
 			);
 			productName = Photography;
 			productReference = 6AF1BA132B6CF5A9009F8E44 /* Photography.app */;
@@ -405,6 +439,7 @@
 				6AF1BA522B6CFEC5009F8E44 /* XCRemoteSwiftPackageReference "SnapKit" */,
 				6AF1BA572B6CFED3009F8E44 /* XCRemoteSwiftPackageReference "RxSwift" */,
 				6AF1BA7B2B6D1638009F8E44 /* XCRemoteSwiftPackageReference "CHTCollectionViewWaterfallLayout" */,
+				6AF1BA9A2B6E2EB9009F8E44 /* XCRemoteSwiftPackageReference "Shuffle" */,
 			);
 			productRefGroup = 6AF1BA142B6CF5A9009F8E44 /* Products */;
 			projectDirPath = "";
@@ -436,16 +471,21 @@
 				6AF1BA762B6D00F4009F8E44 /* UnsplashAPIKey.swift in Sources */,
 				6AF1BA862B6D16A6009F8E44 /* HomeViewModel.swift in Sources */,
 				6AF1BA742B6D0054009F8E44 /* AlamofireNetworkServices.swift in Sources */,
+				6AF1BAA62B6E3138009F8E44 /* RandomPhotosRequestDTO.swift in Sources */,
 				6AF1BA632B6CFEF5009F8E44 /* PhotoListUseCase.swift in Sources */,
 				6AF1BA722B6D003E009F8E44 /* DefaultAlamofireNetworkService.swift in Sources */,
+				6AF1BAA42B6E3129009F8E44 /* RandomPhotosResponseDTO+Mapping.swift in Sources */,
+				6AF1BAA02B6E30BE009F8E44 /* DefaultRandomPhotosRepository.swift in Sources */,
 				6AF1BA832B6D165D009F8E44 /* PhotoCollectionViewCell.swift in Sources */,
 				6AF1BA3B2B6CFD4B009F8E44 /* Photo.swift in Sources */,
 				6AF1BA882B6D5D36009F8E44 /* LoadingIndicatorReusableView.swift in Sources */,
+				6AF1BAA82B6E35C1009F8E44 /* RandomPhotosUseCase.swift in Sources */,
 				6AF1BA362B6CFB25009F8E44 /* HomeViewController.swift in Sources */,
 				6AF1BA452B6CFE4D009F8E44 /* BaseURLs.swift in Sources */,
 				6AF1BA6B2B6CFFEE009F8E44 /* DefaultPhotoListRepository.swift in Sources */,
-				6AF1BA1B2B6CF5A9009F8E44 /* BookmarkViewController.swift in Sources */,
+				6AF1BA1B2B6CF5A9009F8E44 /* RandomPhotoViewController.swift in Sources */,
 				6AF1BA992B6E1E88009F8E44 /* PhotoCollectionViewHeader.swift in Sources */,
+				6AF1BA9E2B6E3075009F8E44 /* RandomPhotosRepository.swift in Sources */,
 				6AF1BA652B6CFF0E009F8E44 /* PhotoListRepository.swift in Sources */,
 				6AF1BA672B6CFF6B009F8E44 /* PhotoListResponseDTO+Mapping.swift in Sources */,
 				6AF1BA172B6CF5A9009F8E44 /* AppDelegate.swift in Sources */,
@@ -710,6 +750,14 @@
 				minimumVersion = 0.9.10;
 			};
 		};
+		6AF1BA9A2B6E2EB9009F8E44 /* XCRemoteSwiftPackageReference "Shuffle" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/mac-gallagher/Shuffle";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -782,6 +830,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 6AF1BA7B2B6D1638009F8E44 /* XCRemoteSwiftPackageReference "CHTCollectionViewWaterfallLayout" */;
 			productName = CHTCollectionViewWaterfallLayoutObjC;
+		};
+		6AF1BA9B2B6E2EB9009F8E44 /* Shuffle */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 6AF1BA9A2B6E2EB9009F8E44 /* XCRemoteSwiftPackageReference "Shuffle" */;
+			productName = Shuffle;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

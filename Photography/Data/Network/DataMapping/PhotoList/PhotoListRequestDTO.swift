@@ -7,7 +7,7 @@
 
 import Foundation
 
-// MARK: - PhotoList 응답 DTO
+// MARK: - PhotoList 요청 DTO
 struct PhotoListRequestDTO: Encodable {
     enum CodingKeys: String, CodingKey {
         case key = "client_id"
