@@ -23,7 +23,7 @@ class RandomPhotoViewController: UIViewController {
     private let cardDidSwipeRight: PublishRelay<Void> = PublishRelay<Void>()
     private let bookmarkButtonDidTap: PublishRelay<Void> = PublishRelay<Void>()
     private let removeButtonDidTap: PublishRelay<Void> = PublishRelay<Void>()
-    private let infoButtonDidTap: PublishRelay<Void> = PublishRelay<Void>()
+    private let infoButtonDidTap: PublishRelay<String> = PublishRelay<String>()
     
     // MARK: - UI Components
     
@@ -128,6 +128,26 @@ extension RandomPhotoViewController {
             })
             .disposed(by: disposeBag)
         
+        output.presentDetailView
+            .asDriver(onErrorJustReturn: "")
+            .drive(onNext: { [weak self] photoID in
+                self?.presentDetailViewController(with: photoID)
+            })
+            .disposed(by: disposeBag)
+    }
+}
+
+// MARK: - Flow methos
+extension RandomPhotoViewController {
+    private func presentDetailViewController(with photoID: String) {
+        let photoDetailViewModel = PhotoDetailViewModel(photoID: photoID, photoDetailUseCase: DefaultPhotoDetailUseCase(
+            photoRepository: DefaultPhotoListRepository(alamofireService: DefaultAlamofireNetworkService()),
+            realmRepository: DefaultRealmRepository(realmService: DefaultRealmService()))
+        )
+        
+        let detailViewController = PhotoDetailViewController(viewModel: photoDetailViewModel)
+        detailViewController.modalPresentationStyle = .overFullScreen
+        self.present(detailViewController, animated: true)
     }
 }
 

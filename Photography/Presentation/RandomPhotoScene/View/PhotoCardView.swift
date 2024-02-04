@@ -162,7 +162,7 @@ final class PhotoCardView: UIView {
     
     func cardViewBinding(bookmarkButtonTapped: PublishRelay<Void>,
                          removeButtonTapped: PublishRelay<Void>,
-                         infoButtonTapped: PublishRelay<Void>,
+                         infoButtonTapped: PublishRelay<String>,
                          disposeBag: DisposeBag) {
         bookmarkButton.rx.tap
             .bind(to: bookmarkButtonTapped)
@@ -172,9 +172,17 @@ final class PhotoCardView: UIView {
             .bind(to: removeButtonTapped)
             .disposed(by: disposeBag)
         
+//        infoButton.rx.tap
+//            .bind(to: infoButtonTapped)
+//            .disposed(by: disposeBag)
+        
         infoButton.rx.tap
-            .bind(to: infoButtonTapped)
-            .disposed(by: disposeBag)}
+            .flatMap { [weak self] _ -> Observable<String> in
+                guard let self = self else { return .empty() }
+                return Observable.just(self.photo.imageName)
+            }.bind(to: infoButtonTapped)
+            .disposed(by: disposeBag)
+    }
 }
 
 //#Preview {

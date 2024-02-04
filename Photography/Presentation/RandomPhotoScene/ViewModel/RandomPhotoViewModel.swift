@@ -9,6 +9,7 @@ import Foundation
 
 import RxSwift
 import RxRelay
+import RxCocoa
 
 final class RandomPhotoViewModel {
     private let randomPhotosUseCase: RandomPhotosUseCase
@@ -20,13 +21,14 @@ final class RandomPhotoViewModel {
         let cardDidSwipeRight: PublishRelay<Void>
         let bookmarkButtonTapped: PublishRelay<Void>
         let removeButtonTapped: PublishRelay<Void>
-        let infoButtonTapped: PublishRelay<Void>
+        let infoButtonTapped: PublishRelay<String>
     }
     
     struct Output {
         var didLoadData = PublishRelay<Bool>()
         var cardWillSwipeLeft = PublishRelay<Void>()
         var cardWillSwipeRight = PublishRelay<Void>()
+        var presentDetailView = PublishRelay<String>()
     }
     
     init(
@@ -68,7 +70,6 @@ final class RandomPhotoViewModel {
                 
                 // 북마크 생성
                 let bookmarkPhoto = self?.photos.first
-                print("북마크 생성: \(bookmarkPhoto)")
                 self?.createBookmark(photo: bookmarkPhoto!)
                 
                 self?.photos.removeFirst()
@@ -84,9 +85,8 @@ final class RandomPhotoViewModel {
             .disposed(by: disposeBag)
         
         input.infoButtonTapped
-            .subscribe(onNext: { _ in
-                print("정보 버튼 클릭")
-            }).disposed(by: disposeBag)
+            .bind(to: output.presentDetailView)
+            .disposed(by: disposeBag)
         
         return output
     }
