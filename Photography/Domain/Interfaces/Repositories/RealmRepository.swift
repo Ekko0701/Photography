@@ -13,4 +13,5 @@ protocol RealmRepository {
     func fetchPhotos() -> Observable<[Photo]>
     func createBookmark(photo: Photo)
     func deleteBookmark(photo: Photo)
+    func checkBookmark(photoID: String) -> Observable<Bool>
 }

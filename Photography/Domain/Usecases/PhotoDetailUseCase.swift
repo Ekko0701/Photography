@@ -11,6 +11,9 @@ import RxSwift
 
 protocol PhotoDetailUseCase {
     func fetchPhotoDetail(from photoID: String) -> Observable<PhotoDetail>
+    func checkBookmark(from photoID: String) -> Observable<Bool>
+    func createBookmark(photo: PhotoDetail)
+    func deleteBookmark(photo: PhotoDetail)
 }
 
 final class DefaultPhotoDetailUseCase: PhotoDetailUseCase {
@@ -27,5 +30,17 @@ final class DefaultPhotoDetailUseCase: PhotoDetailUseCase {
     
     func fetchPhotoDetail(from photoID: String) -> Observable<PhotoDetail> {
         return self.photoRepository.fetchPhotoDetail(id: photoID)
+    }
+    
+    func checkBookmark(from photoID: String) -> Observable<Bool> {
+        return self.realmRepository.checkBookmark(photoID: photoID)
+    }
+    
+    func createBookmark(photo: PhotoDetail) {
+        return self.realmRepository.createBookmark(photo: photo.toPhoto())
+    }
+    
+    func deleteBookmark(photo: PhotoDetail) {
+        return self.realmRepository.deleteBookmark(photo: photo.toPhoto())
     }
 }

@@ -37,8 +37,9 @@ final class DefaultRealmService: RealmService {
     
     func delete<T: Object>(object: T) {
         let realm = try! Realm()
+        let obj = realm.object(ofType: T.self, forPrimaryKey: object.value(forKey: "id"))
         try! realm.write {
-            realm.delete(object)
+            realm.delete(obj!)
         }
     }
 }

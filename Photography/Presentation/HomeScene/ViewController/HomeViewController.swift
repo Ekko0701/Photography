@@ -24,7 +24,7 @@ class HomeViewController: UIViewController {
     
     private var fetchMorePhoto: PublishSubject<Void> = PublishSubject<Void>()
     private var photoDidTap: PublishSubject<Photo> = PublishSubject<Photo>()
-    
+    private var backHome: PublishSubject<Void> = PublishSubject<Void>()
     // MARK: - UI elements
     
     private let collectionView: UICollectionView = {
@@ -64,11 +64,12 @@ class HomeViewController: UIViewController {
         self.setNavigation()
         self.setCollectionView()
         self.setUI()
-        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleDetailViewControllerDismiss), name: NSNotification.Name("DetailViewControllerDidDismiss"), object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
     }
     
     override func viewDidLayoutSubviews() {
@@ -131,6 +132,10 @@ class HomeViewController: UIViewController {
             self.collectionView.collectionViewLayout.invalidateLayout()
         }
     }
+    
+    @objc func handleDetailViewControllerDismiss() {
+        self.backHome.onNext(())
+    }
 }
 
 // MARK: - Binding
@@ -143,7 +148,8 @@ extension HomeViewController {
             viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in },
             viewWillAppear: self.rx.methodInvoked(#selector(UIViewController.viewWillAppear)).map { _ in },
             fetchMorePhoto: self.fetchMorePhoto,
-            photoSelected: self.photoDidTap
+            photoSelected: self.photoDidTap,
+            backToHome: self.backHome
         )
         
         // OUTPUT

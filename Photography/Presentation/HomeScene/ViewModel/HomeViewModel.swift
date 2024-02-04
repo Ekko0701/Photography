@@ -20,6 +20,7 @@ final class HomeViewModel {
         let viewWillAppear: Observable<Void>
         let fetchMorePhoto: PublishSubject<Void>
         let photoSelected: Observable<Photo>
+        let backToHome: Observable<Void>
     }
     
     struct Output {
@@ -54,6 +55,7 @@ final class HomeViewModel {
         
         input.viewWillAppear
             .flatMap { [weak self] _ in
+                print("뷰 윌 어피어")
                 return self?.photoListUseCase.fetchBookmarkPhotoList() ?? Observable.just([])
             }.bind(to: output.didLoadBookmarkPhotoList)
             .disposed(by: disposeBag)
@@ -84,6 +86,13 @@ final class HomeViewModel {
         input.photoSelected
             .map { $0.imageName }
             .bind(to: output.presentDetailView)
+            .disposed(by: disposeBag)
+        
+        
+        input.backToHome
+            .flatMap { [weak self] _ in
+                return self?.photoListUseCase.fetchBookmarkPhotoList() ?? Observable.just([])
+            }.bind(to: output.didLoadBookmarkPhotoList)
             .disposed(by: disposeBag)
         
         return output

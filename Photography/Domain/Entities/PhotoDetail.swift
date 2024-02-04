@@ -18,3 +18,15 @@ struct PhotoDetail {
     let userName: String
     let tags: [String]
 }
+
+extension PhotoDetail {
+    func toPhoto() -> Photo {
+        return Photo(
+            imageName: id,
+            description: description,
+            height: CGFloat(height),
+            width: CGFloat(width),
+            imageURL: imageURL
+        )
+    }
+}

@@ -17,7 +17,8 @@ class PhotoDetailViewController: UIViewController {
     // MARK: - Properties
     private var photoDetailViewModel: PhotoDetailViewModel?
     private let disposeBag: DisposeBag = DisposeBag()
-    
+    private let bookmarkButtonDidTap: PublishRelay<Bool> = PublishRelay<Bool>()
+    private var isBookMarked: Bool = false
     // MARK: - UI Components
     private lazy var closeButton: UIButton = {
         let button = UIButton()
@@ -49,7 +50,7 @@ class PhotoDetailViewController: UIViewController {
         let button = UIButton()
         let bookmarkImage = UIImage(named: "bookmark")?.resized(to: CGSize(width: 24, height: 24)).withRenderingMode(.alwaysTemplate)
         button.setImage(bookmarkImage, for: .normal)
-        button.tintColor = .white.withAlphaComponent(0.2)
+        button.tintColor = .white.withAlphaComponent(0.3)
         return button
     }()
     
@@ -183,11 +184,22 @@ class PhotoDetailViewController: UIViewController {
     }
     
     private func bindViewModel() {
+        bookmarkButton.rx.tap
+                .subscribe(onNext: { [weak self] _ in
+                    guard let self = self else { return }
+                    self.isBookMarked.toggle() // isBookMarked 상태 토글
+                    self.bookmarkButtonDidTap.accept(self.isBookMarked) // PublishRelay에 방출
+                    // 선택 상태에 따라 버튼의 tintColor 업데이트
+                    self.bookmarkButton.tintColor = self.isBookMarked ? .white : .white.withAlphaComponent(0.3)
+                })
+                .disposed(by: disposeBag)
+        
         guard let viewModel = self.photoDetailViewModel else { return }
         
         let input = PhotoDetailViewModel.Input(
             viewDidLoad: self.rx.methodInvoked(#selector(UIViewController.viewDidLoad)).map { _ in },
-            closeButtonTapped: self.closeButton.rx.tap.map { _ in }
+            closeButtonTapped: self.closeButton.rx.tap.map { _ in },
+            bookmarkButtonTapped: self.bookmarkButtonDidTap.asObservable()
         )
         
         let output = viewModel.transform(
@@ -213,6 +225,21 @@ class PhotoDetailViewController: UIViewController {
         output.closeButtonTapped
             .drive(onNext: { [weak self] in
                 self?.dismiss(animated: true, completion: nil)
+                NotificationCenter.default.post(name: NSNotification.Name("DetailViewControllerDidDismiss"), object: nil)
+            })
+            .disposed(by: disposeBag)
+        
+        output.isBookmarked
+            .drive(onNext: { [weak self] isBookmarked in
+                if isBookmarked {
+                    self?.bookmarkButton.isSelected = true
+                    self?.isBookMarked = true
+                    self?.bookmarkButton.tintColor = .white
+                } else {
+                    self?.bookmarkButton.isSelected = false
+                    self?.isBookMarked = false
+                    self?.bookmarkButton.tintColor = .white.withAlphaComponent(0.3)
+                }
             })
             .disposed(by: disposeBag)
     }

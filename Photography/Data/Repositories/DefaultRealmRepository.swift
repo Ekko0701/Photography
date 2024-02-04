@@ -42,7 +42,21 @@ extension DefaultRealmRepository: RealmRepository {
         realmService.delete(object: toObject(photo: photo))
     }
     
-    // TODO: - 재구성 필요
+    func checkBookmark(photoID: String) -> Observable<Bool> {
+        var photoObservable: Observable<PhotoObject> = realmService.read(id: photoID)
+        photoObservable = photoObservable.flatMap { data in
+            if let photoObjects = data as? PhotoObject {
+                return Observable.just(photoObjects)
+            } else {
+                return Observable.just(PhotoObject())
+            }
+        }.asObservable()
+        
+        return photoObservable.map { _ in
+            true
+        }.catchAndReturn(false)
+    }
+    
     private func toObject(photo: Photo) -> PhotoObject {
         let photoObject = PhotoObject()
         photoObject.id = photo.imageName
