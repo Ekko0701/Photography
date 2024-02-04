@@ -10,17 +10,30 @@ DataLayer: Repository, Service(Network & Realm)
 Domain: Usecase, Model(Entity)  
 
 ## Description. 
+    - CleanArchitecture의 Dependency Rule 준수
+        - Presentation Layer -> Domain Layer <- Data 레이어
+        - 의존성 주입 패턴 사용
     - Entity: Photo, PhotoDetail가 ViewModel과 차이가 적어 ViewModel로 사용
     - Infrastructure의 AlamofireNetworkServices, RealmServices에서 각각 제네릭을 사용해 관련 로직을 구현해 놓음. 유연하게 사용 가능
     - Repository 인터페이스를 사용해 각 Usecase에서 필요한 Repository에 접근해 사용 (의존성 역전)
         - 처음엔 기능 개발이 오래 걸렸지만 후반에는 중복된 기능이 Repository에 이미 정의되있어 재사용성이 올라감
 
     - RxSwift, RxCocoa를 사용해 View와 ViewModel을 바인딩
+        - Input, Output, Transform 구조 사용
     - SnapKit을 사용해 AutoLayout을 구현
-    - Realm을 사용해 즐겨찾기 기능 구현
-    
-    - CHTCollectionViewWaterfallLayout 라이브러리를 사용해 Pinterest 스타일의 레이아웃 구현
-    - Shuffle 라이브러리를 사용해 RandomPhotoView 레이아웃 구성
+    - Realm을 사용해 Local 즐겨찾기 기능 구현
+    - Nuke를 사용해 이미지 로드 구현
+        - NukeExtensions.loadImage의 completionHander를 통해 각 cell의 이미지 로드중 indicator 노출
+
+### Data flow
+    - View, ViewModel 바인딩
+    - ViewModel에 View로 부터 Input이 발생, ViewModel에서 Usecase 실행
+    - Use case에서 Repository의 메서드 호출
+    - Repository에서 api 응답 결과 및 realm 데이터 반환
+    - 반환된 데이터 View에 전달
+
+
+### Detail
     
 ## 추가
 (24.02.04, 12:15) 사진 상세 화면 북마크 삭제 기능 수정 완료
