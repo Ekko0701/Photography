@@ -1,8 +1,23 @@
 ## Photography (24.02.02 Fri ~ )
 
 Architecture: Clean Architecture & MVVM  
-Dependency Management: Swift Package Manager
+Dependency Management: Swift Package Manager  
+Library: RxSwift, RxCocoa, Alamofire, Nuke, Realm, Shuffle, Snapkit, CHTCollectionViewWaterfallLayout  
 
+## 프로젝트 구조
+Presentaion Layer: View, ViewModel  
+DataLayer: Repository, Service(Network & Realm)  
+Domain: Usecase, Model(Entity)  
+
+## Description. 
+    - RxSwift, RxCocoa를 사용해 View와 ViewModel을 바인딩
+    - SnapKit을 사용해 AutoLayout을 구현
+    - Realm을 사용해 즐겨찾기 기능 구현
+    
+    - (/photos) API를 사용한 사진 리스트 화면
+    - CHTCollectionViewWaterfallLayout을 사용해 Pinterest 스타일의 레이아웃 구현
+    - 사진을 선택하면 상세 화면을 이동 (/photos/:id)를 사용해 상세 검색
+    
 ## GIT COMMIT MESSAGE CONVENTION
 
 |태그 이름|설명|
