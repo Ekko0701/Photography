@@ -22,6 +22,10 @@ Domain: Usecase, Model(Entity)
     - CHTCollectionViewWaterfallLayout 라이브러리를 사용해 Pinterest 스타일의 레이아웃 구현
     - Shuffle 라이브러리를 사용해 RandomPhotoView 레이아웃 구성
     
+## 추가
+(24.02.04, 12:15) 사진 상세 화면 북마크 삭제 기능 수정 완료
+    
+    
 ## GIT COMMIT MESSAGE CONVENTION
 
 |태그 이름|설명|

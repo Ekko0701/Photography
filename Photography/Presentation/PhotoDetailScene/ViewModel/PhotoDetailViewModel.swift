@@ -81,7 +81,7 @@ final class PhotoDetailViewModel {
                 if isBookMarked {
                     self.photoDetailUseCase.createBookmark(photo: photoDetail ?? PhotoDetail(id: self.photoID, slug: "", title: "", width: 0, height: 0, imageURL: "", description: "", userName: "", tags: []))
                 } else {
-//                    self.photoDetailUseCase.deleteBookmark(photo: photoDetail ?? PhotoDetail(id: self.photoID, slug: "", title: "", width: 0, height: 0, imageURL: "", description: "", userName: "", tags: []))
+                    self.photoDetailUseCase.deleteBookmark(photo: photoDetail ?? PhotoDetail(id: self.photoID, slug: "", title: "", width: 0, height: 0, imageURL: "", description: "", userName: "", tags: []))
                 }
             })
             .disposed(by: disposeBag)
