@@ -55,6 +55,15 @@ class RandomPhotoViewController: UIViewController {
         navigationController.navigationBar.backgroundColor = .white
         navigationController.navigationBar.barTintColor = .white
         navigationController.navigationBar.isTranslucent = false
+    
+        let appearance = UINavigationBarAppearance()
+        appearance.backgroundColor = .white
+        appearance.shadowColor = nil
+        navigationController.navigationBar.standardAppearance = appearance
+        
+        if #available(iOS 15.0, *) {
+            navigationController.navigationBar.scrollEdgeAppearance = appearance
+        }
         
         let titleImageView = UIImageView(image: UIImage(named: "logo"))
         titleImageView.contentMode = .scaleAspectFit
