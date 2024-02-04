@@ -59,6 +59,7 @@ final class HomeViewModel {
             .disposed(by: disposeBag)
         
         input.fetchMorePhoto
+            .skip(1)
             .filter { [unowned self] _ in !self.isFetching.value }
             .flatMapLatest { [weak self] _ -> Observable<[Photo]> in
                 guard let self = self else { return Observable.empty() }

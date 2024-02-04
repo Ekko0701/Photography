@@ -17,8 +17,8 @@ class HomeViewController: UIViewController {
     // MARK: - Properties
     var homeViewModel: HomeViewModel?
     private let disposeBag = DisposeBag()
-    private var models = [Photo]()
-    private var bookmarkDummyData: [Photo] = [Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "d")] // Photo(imageName: "t", description: "t", height: 10, width: 10, imageURL: "d")
+    private var photos = [Photo]()
+    private var bookmarkData: [Photo] = []
     
     var isLoading: Bool = false
     
@@ -154,7 +154,7 @@ extension HomeViewController {
         
         output.didLoadPhotoList
             .subscribe(onNext: { [weak self] photoList in
-                self?.models.append(contentsOf: photoList)
+                self?.photos.append(contentsOf: photoList)
                 self?.collectionView.reloadData()
                 
             })
@@ -163,7 +163,7 @@ extension HomeViewController {
         output.didLoadBookmarkPhotoList
             .subscribe(onNext: { [weak self] photoList in
                 print("북마크 결과: \(photoList)")
-                self?.bookmarkDummyData = photoList
+                self?.bookmarkData = photoList
                 self?.collectionView.reloadData()
             })
             .disposed(by: disposeBag)
@@ -204,9 +204,9 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if section == 0 {
-            return bookmarkDummyData.isEmpty ? 0 : 1
+            return bookmarkData.isEmpty ? 0 : 1
         } else {
-            return models.count
+            return photos.count
         }
     }
     
@@ -220,7 +220,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
             }
             
             cell.configure(
-                bookmarks: bookmarkDummyData,
+                bookmarks: bookmarkData,
                 buttonTapSubject: self.photoDidTap
             )
             return cell
@@ -232,7 +232,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return UICollectionViewCell()
             }
             
-            cell.configure(with: models[indexPath.row])
+            cell.configure(with: photos[indexPath.row])
             return cell
         }
     }
@@ -262,7 +262,7 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        self.photoDidTap.onNext(models[indexPath.row])
+        self.photoDidTap.onNext(photos[indexPath.row])
     }
 }
 
@@ -272,8 +272,8 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
         if indexPath.section == 0 {
             return CGSize(width: view.frame.size.width, height: 128)
         } else {
-            let imageWidth: CGFloat = self.models[indexPath.row].width
-            let imageHeight: CGFloat = self.models[indexPath.row].height
+            let imageWidth: CGFloat = self.photos[indexPath.row].width
+            let imageHeight: CGFloat = self.photos[indexPath.row].height
             
             let imageViewWidth: CGFloat = view.frame.size.width / 2
             
@@ -291,7 +291,7 @@ extension HomeViewController: CHTCollectionViewDelegateWaterfallLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, heightForHeaderIn section: Int) -> CGFloat {
         
-        if bookmarkDummyData.isEmpty {
+        if bookmarkData.isEmpty {
             if section == 0 {
                 return 0
             } else {
