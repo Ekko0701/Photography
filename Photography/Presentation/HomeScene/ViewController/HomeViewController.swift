@@ -210,7 +210,10 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
                 return UICollectionViewCell()
             }
             
-            cell.configure(bookmarks: bookmarkDummyData)
+            cell.configure(
+                bookmarks: bookmarkDummyData,
+                buttonTapSubject: self.photoDidTap
+            )
             return cell
         } else {
             guard let cell = collectionView.dequeueReusableCell(
@@ -250,7 +253,6 @@ extension HomeViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("탭: \(models[indexPath.row])")
         self.photoDidTap.onNext(models[indexPath.row])
     }
 }

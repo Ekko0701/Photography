@@ -8,10 +8,14 @@
 import Foundation
 import UIKit
 
+import RxSwift
+
 class BookMarkCell: UICollectionViewCell {
     // MARK: - Properties
     static let identifier = "BookMarkCell"
     private var bookmarks: [Photo] = []
+    private var bookmarkPhotoDidTapSubject: PublishSubject<Photo> = PublishSubject<Photo>()
+    
     // MARK: - UI Components
     private lazy var collectionView: UICollectionView = {
         let layout = UICollectionViewFlowLayout()
@@ -46,9 +50,13 @@ class BookMarkCell: UICollectionViewCell {
         }
     }
     
-    func configure(bookmarks: [Photo]) {
+    func configure(
+        bookmarks: [Photo],
+        buttonTapSubject: PublishSubject<Photo>
+    ) {
         self.bookmarks = bookmarks
         self.collectionView.reloadData()
+        self.bookmarkPhotoDidTapSubject = buttonTapSubject
     }
 }
 
@@ -64,7 +72,7 @@ extension BookMarkCell: UICollectionViewDelegate, UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("탭탭탭: \(indexPath)")
+        bookmarkPhotoDidTapSubject.onNext(bookmarks[indexPath.row])
     }
 }
 
