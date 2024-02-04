@@ -10,13 +10,17 @@ DataLayer: Repository, Service(Network & Realm)
 Domain: Usecase, Model(Entity)  
 
 ## Description. 
+    - Entity: Photo, PhotoDetail가 ViewModel과 차이가 적어 ViewModel로 사용
+    - Infrastructure의 AlamofireNetworkServices, RealmServices에서 각각 제네릭을 사용해 관련 로직을 구현해 놓음. 유연하게 사용 가능
+    - Repository 인터페이스를 사용해 각 Usecase에서 필요한 Repository에 접근해 사용 (의존성 역전)
+        - 처음엔 기능 개발이 오래 걸렸지만 후반에는 중복된 기능이 Repository에 이미 정의되있어 재사용성이 올라감
+
     - RxSwift, RxCocoa를 사용해 View와 ViewModel을 바인딩
     - SnapKit을 사용해 AutoLayout을 구현
     - Realm을 사용해 즐겨찾기 기능 구현
     
-    - (/photos) API를 사용한 사진 리스트 화면
-    - CHTCollectionViewWaterfallLayout을 사용해 Pinterest 스타일의 레이아웃 구현
-    - 사진을 선택하면 상세 화면을 이동 (/photos/:id)를 사용해 상세 검색
+    - CHTCollectionViewWaterfallLayout 라이브러리를 사용해 Pinterest 스타일의 레이아웃 구현
+    - Shuffle 라이브러리를 사용해 RandomPhotoView 레이아웃 구성
     
 ## GIT COMMIT MESSAGE CONVENTION
 
