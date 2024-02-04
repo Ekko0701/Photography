@@ -23,6 +23,13 @@ class BookmarkItemCell: UICollectionViewCell {
         return imageView
     }()
     
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     // MARK: - Initializer
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -38,9 +45,22 @@ class BookmarkItemCell: UICollectionViewCell {
         imageView.snp.makeConstraints {
             $0.edges.equalToSuperview()
         }
+        
+        self.imageView.addSubview(self.loadingIndicator)
+        self.loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
     }
     
     func configure(with photo: Photo) {
-        NukeExtensions.loadImage(with: URL(string: photo.imageURL), into: imageView)
+        self.loadingIndicator.startAnimating()
+        NukeExtensions.loadImage(
+            with: URL(string: photo.imageURL),
+            options: ImageLoadingOptions(placeholder: UIImage(), transition: .fadeIn(duration: 0.33)),
+            into: imageView,
+            completion: { [weak self] _ in
+                self?.loadingIndicator.stopAnimating()
+            }
+        )
     }
 }

@@ -8,7 +8,7 @@
 import UIKit
 
 import NukeExtensions
-
+import Nuke
 @MainActor
 class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - Properties
@@ -18,7 +18,6 @@ class PhotoCollectionViewCell: UICollectionViewCell {
     // MARK: - UI elements
     private lazy var imageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.backgroundColor = .systemRed
         imageView.contentMode = .scaleAspectFill
         imageView.layer.cornerRadius = 8
         imageView.clipsToBounds = true
@@ -33,6 +32,13 @@ class PhotoCollectionViewCell: UICollectionViewCell {
         label.textAlignment = .left
         label.font = UIFont.systemFont(ofSize: 13, weight: .medium)
         return label
+    }()
+    
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .black
+        indicator.hidesWhenStopped = true
+        return indicator
     }()
     
     // MARK: - Initializers
@@ -69,12 +75,26 @@ class PhotoCollectionViewCell: UICollectionViewCell {
             make.trailing.equalToSuperview().offset(-32)
             make.bottom.equalToSuperview().offset(-8)
         }
+        
+        self.imageView.addSubview(self.loadingIndicator)
+        self.loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
     }
     
     func configure(
         with photo: Photo
     ) {
-        NukeExtensions.loadImage(with: URL(string: photo.imageURL), options: ImageLoadingOptions(placeholder: UIImage(systemName: "photo"), transition: .fadeIn(duration: 0.33)), into: imageView)
+        self.loadingIndicator.startAnimating()
+        NukeExtensions.loadImage(
+            with: URL(string: photo.imageURL),
+            options: ImageLoadingOptions(placeholder: UIImage(), transition: .fadeIn(duration: 0.33)),
+            into: imageView,
+            completion: { [weak self] _ in
+                self?.loadingIndicator.stopAnimating()
+            }
+        )
+        
         titleLabel.text = photo.description
     }
 }

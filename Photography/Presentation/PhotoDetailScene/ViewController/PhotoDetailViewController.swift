@@ -89,6 +89,13 @@ class PhotoDetailViewController: UIViewController {
         return label
     }()
     
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .white
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     // MARK: - Initialize
     init(viewModel: PhotoDetailViewModel) {
         super.init(nibName: nil, bundle: nil)
@@ -167,7 +174,10 @@ class PhotoDetailViewController: UIViewController {
             $0.trailing.equalToSuperview().offset(-48)
         }
         
-        
+        self.photoImageView.addSubview(self.loadingIndicator)
+        self.loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
+        }
 
     
     }
@@ -208,7 +218,15 @@ class PhotoDetailViewController: UIViewController {
     }
     
     private func setImage(with photoURL: String) {
-        NukeExtensions.loadImage(with: URL(string: photoURL), into: self.photoImageView)
+        self.loadingIndicator.startAnimating()
+        NukeExtensions.loadImage(
+            with: URL(string: photoURL),
+            options: ImageLoadingOptions(placeholder: UIImage(), transition: .fadeIn(duration: 0.33)),
+            into: photoImageView,
+            completion: { [weak self] _ in
+                self?.loadingIndicator.stopAnimating()
+            }
+        )
     }
     
     private func resizeImageView(width: CGFloat, height: CGFloat) {

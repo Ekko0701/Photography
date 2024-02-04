@@ -77,6 +77,13 @@ final class PhotoCardView: UIView {
         return button
     }()
     
+    private lazy var loadingIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: .medium)
+        indicator.color = .white
+        indicator.hidesWhenStopped = true
+        return indicator
+    }()
+    
     init(
         with photo: Photo
     ) {
@@ -104,6 +111,11 @@ final class PhotoCardView: UIView {
             $0.top.equalToSuperview().offset(8)
             $0.leading.equalToSuperview().offset(8)
             $0.trailing.equalToSuperview().offset(-8)
+        }
+        
+        imageView.addSubview(self.loadingIndicator)
+        self.loadingIndicator.snp.makeConstraints {
+            $0.center.equalToSuperview()
         }
         
         backgroundView.addSubview(buttonView)
@@ -137,7 +149,15 @@ final class PhotoCardView: UIView {
     }
     
     private func setImage() {
-        NukeExtensions.loadImage(with: URL(string: photo.imageURL), options: ImageLoadingOptions(placeholder: UIImage(systemName: "photo"), transition: .fadeIn(duration: 0.33)), into: imageView)
+        self.loadingIndicator.startAnimating()
+        NukeExtensions.loadImage(
+            with: URL(string: photo.imageURL),
+            options: ImageLoadingOptions(placeholder: UIImage(), transition: .fadeIn(duration: 0.33)),
+            into: imageView,
+            completion: { [weak self] _ in
+                self?.loadingIndicator.stopAnimating()
+            }
+        )
     }
     
     func cardViewBinding(bookmarkButtonTapped: PublishRelay<Void>,
